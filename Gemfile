@@ -54,6 +54,7 @@ gem 'hotwire-rails'
 
 gem 'stimulus_reflex'
 
+gem "rubocop", "~> 1.56"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -79,3 +80,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
