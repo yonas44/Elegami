@@ -61,6 +61,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   gem 'rspec-rails'
+
+  gem 'faker'
+
+  gem 'factory_bot_rails'
+
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -81,3 +87,5 @@ group :test do
   gem "webdrivers"
 end
 
+
+gem "tailwindcss-rails", "~> 2.0"
