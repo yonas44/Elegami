@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  it 'Creates a record' do
+    project = FactoryBot.create(:project)
+    expect(described_class.count).to be > 0
+  end
 end
