@@ -6,4 +6,6 @@ class User < ApplicationRecord
   
   has_many :projects, through: :project_users
   has_many :project_users, dependent: :destroy
+
+  validates :full_name, presence: true
 end
