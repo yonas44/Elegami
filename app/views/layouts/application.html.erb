@@ -15,13 +15,13 @@
     <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' %>
   </head>
   <body>
-    <% if flash.now[:success] %>
-      <div class="alert alert-success">
-        <%= flash.now[:success] %>
+    <% if flash.now[:notice] %>
+      <div class="bg-green-500 text-white px-4 py-2 rounded-md fixed top-2 right-2">
+        <%= flash.now[:notice] %>
       </div>
     <% end %>
     <% if flash.now[:error] %>
-      <div class="alert alert-danger">
+      <div class="bg-red-500 text-white px-3 py-1 rounded-sm fixed top-2 right-2">
         <%= flash.now[:error] %>
       </div>
     <% end %>
