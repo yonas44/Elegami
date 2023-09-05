@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   def index
+    @user = current_user
     @projects = Project.all
+    @project = Project.new
   end
 
   def show
@@ -9,13 +11,18 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-    
-    if @project.save
-      flash.now[:success] = "Project successfully created."
-    else
-      flash.now[:error]  = "Project creation failed."
+  
+    respond_to do |format|
+      if @project.save
+        # format.turbo_stream
+        format.html { redirect_to projects_path, notice: "Project successfully created." }
+      else
+        # format.turbo_stream
+        # format.html { error: "Error creating project." }
+      end
     end
   end
+  
 
   private
 

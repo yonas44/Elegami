@@ -16,7 +16,7 @@
   </head>
   <body>
     <% if flash.now[:notice] %>
-      <div class="bg-green-500 text-white px-4 py-2 rounded-md fixed top-2 right-2">
+      <div class="bg-green-500 text-white px-4 py-2 rounded-md fixed top-2 right-2" data-controller="flash" data-flash-target="message">
         <%= flash.now[:notice] %>
       </div>
     <% end %>
