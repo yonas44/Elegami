@@ -1,4 +1,110 @@
-<h1>Hello from project index</h1>
-<% @projects.each do |project| %>
-  <div><%= project.title %></div>
-<% end %>
+<section
+  class="h-screen w-screen bg-[#21253F] text-white flex justify-center items-center"
+  data-controller="project"
+>
+  <aside class="flex-1 flex flex-col pl-36">
+    <div class="h-full flex flex-col justify-center box-border">
+      <h1 class="text-4xl font-bold">Hi <%= @user&.full_name %></h1>
+      <p class="text-gray-400 my-3">Welcome back to the workspace!</p>
+      <label for="search" class="relative my-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 text-white absolute inset-0 my-auto left-3"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          />
+        </svg>
+        <input
+          type="text"
+          id="search"
+          class="rounded-2xl bg-[#393D53] text-white p-3 pl-14 border-none"
+          placeholder="Search text or project..."
+        />
+      </label>
+    </div>
+    <section class="flex-1 mt-16">
+      <p class="text-xl">
+        <span class="font-semibold">Projects</span>
+        <span class="text-gray-400">(<%= @projects.count %>)</span>
+      </p>
+      
+        <% if @projects.count > 0 %>
+        <ul class="my-5" id="projects_list">
+          <% @projects.each do |project| %>
+            <%= render 'projects/single_project', project: project %>
+          <% end %>
+        </ul>
+        <% else %>
+        <div class="m-5">There are no projects to display</div>
+        <% end %>
+        <div
+          class="p-5 w-fit rounded-lg cursor-pointer bg-white/30"
+          data-action="click->project#toggleOn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </div>
+        <div
+          class="hidden fixed top-0 left-0 h-screen w-screen bg-black/50"
+          data-project-target="modal"
+        >
+          <%= render 'projects/new_project', resource: @project %>
+        </div>
+     
+    </section>
+  </aside>
+  <aside class="translate-x-full duration-300 ease-out flex-1 h-full p-4" data-project-target="detail">
+    <div class="bg-white rounded-lg text-black p-20 h-full flex flex-col gap-10">
+      <section class="flex justify-between">
+        <div>
+          <h2 class="text-2xl font-bold">Cyber Punk</h2>
+          <p class="text-gray-400 w-1/2 my-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
+            recusandae aspernatur eaque dolores, tempora optio.
+          </p>
+        </div>
+        <div>
+          <button class="relative">
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 text-gray-400 border-2 border-gray-400 rounded-full"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+          </button>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="py-3 font-semibold text-lg border-b border-gray-300">Tasks</h3>
+      </section>
+    </div>
+  </aside>
+</section>
