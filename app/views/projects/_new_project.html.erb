@@ -1,0 +1,16 @@
+<div class="bg-white p-5 m-auto text-black">
+  <h3>Create new project</h3>
+  <%= form_for(@project, url: projects_path, data: { action: "turbo:submit-end->project#reset", project_target: "form" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: @project %>
+    <div class="field my-5">
+      <%= f.text_field :title, autofocus: true, autocomplete: "title", class: "border-none shadow-inner", placeholder: 'Title here..' %>
+    </div>
+    <div class="field my-5">
+      <%= f.text_area :description, autofocus: true, autocomplete: "description", class: "border-none shadow-inner p-3", placeholder: 'Description here..', required: true %>
+    </div>
+    <div class="actions flex gap-3 items-center">
+      <%= f.submit "Create", class: "bg-green-500 text-white px-3 py-1 rounded-md" %>
+      <button data-action="project#toggleOff" type="button">Cancel</button>
+    </div>
+  <% end %>
+</div>

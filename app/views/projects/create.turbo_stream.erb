@@ -1,0 +1,6 @@
+<% if @project %>
+  <%= turbo_stream.append "projects_list", partial: 'projects/single_project', locals: { project: @project } %>
+  <%= turbo_stream.append "flash_container", partial: 'projects/project_flash', locals: { success: "Project successfully created." } %>
+<% else %>
+  <%= turbo_stream.append "flash_container", partial: 'projects/project_flash', locals: { error: "Error creating project." } %>
+<% end %>
