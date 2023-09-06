@@ -1,0 +1,23 @@
+<nav class="absolute z-20" data-controller="navigation">
+  <button class="p-2 bg-white/30 rounded-lg text-white ml-5 mt-5" data-action="navigation#show" data-navigation-target="menuOpen">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+    </svg>
+  </button>
+  <div class="text-white duration-200 h-screen absolute top-0 left-0 -translate-x-full  backdrop-blur-sm p-10" data-navigation-target="navOptions">
+    <button class="block ml-auto mb-10 hover:rotate-180 duration-200" data-action="navigation#hide">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <ul>
+      <li>
+        <button class="flex gap-2 hover:text-red-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+          </svg>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete %></button>
+      </li>
+    </ul>
+  </div>
+</nav>
