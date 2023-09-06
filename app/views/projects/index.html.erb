@@ -1,8 +1,8 @@
 <section
-  class="h-screen w-screen bg-[#21253F] text-white flex justify-center items-center"
+  class="h-screen w-screen bg-[#21253F] text-white flex justify-center items-center relative overflow-x-hidden"
   data-controller="project"
 >
-  <aside class="flex-1 flex flex-col pl-36">
+  <aside class="flex flex-col md:pl-36 mx-auto">
     <div class="h-full flex flex-col justify-center box-border">
       <h1 class="text-4xl font-bold">Hi <%= @user&.full_name %></h1>
       <p class="text-gray-400 my-3">Welcome back to the workspace!</p>
@@ -36,7 +36,7 @@
       </p>
       
         <% if @projects.count > 0 %>
-        <ul class="my-5" id="projects_list">
+        <ul class="my-5 max-h-96 overflow-auto" id="projects_list">
           <% @projects.each do |project| %>
             <%= render 'projects/single_project', project: project %>
           <% end %>
@@ -72,33 +72,38 @@
      
     </section>
   </aside>
-  <aside class="translate-x-full duration-300 ease-out flex-1 h-full p-4" data-project-target="detail">
-    <div class="bg-white rounded-lg text-black p-20 h-full flex flex-col gap-10">
+  <aside class="absolute md:static translate-x-full ml-auto duration-300 ease-out h-full p-4 lg:w-1/2" data-project-target="detail">
+    <div class="bg-white rounded-lg text-black px-10 py-20 md:p-20 h-full flex flex-col gap-10 relative">
+      <button class="absolute top-5 right-5 md:left-5" data-action="project#hide">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+      </button>
       <section class="flex justify-between">
         <div>
-          <h2 class="text-2xl font-bold">Cyber Punk</h2>
-          <p class="text-gray-400 w-1/2 my-2">
+          <div class="flex justify-between">
+            <h2 class="text-2xl font-bold">Cyber Punk</h2>
+            <button class="relative">
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 text-gray-400 border-2 border-gray-400 rounded-full"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+            </button>
+          </div>
+          <p class="text-gray-400 lg:w-1/2 my-2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
             recusandae aspernatur eaque dolores, tempora optio.
           </p>
-        </div>
-        <div>
-          <button class="relative">
-            <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6 text-gray-400 border-2 border-gray-400 rounded-full"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-          </button>
         </div>
       </section>
 
