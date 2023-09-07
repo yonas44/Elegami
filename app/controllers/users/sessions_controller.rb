@@ -9,9 +9,21 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    respond_to do |format|
+      if current_user
+        format.html { redirect_to root_path, notice: "Signed in successfully." }
+      else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append(
+            "flash_container",
+            partial: 'projects/project_flash',
+            locals: { error: "Login Failed, invalid credentials!", success: nil }
+          )
+        end
+      end
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
