@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
     @user = current_user
     @projects = Project.all
     @project = Project.new
+    @new_project = session.delete(:new_project)
   end
 
   def show
@@ -10,14 +11,15 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    project = Project.new(project_params)
   
     respond_to do |format|
-      if @project.save
+      if project.save
         # format.turbo_stream
-        format.html { redirect_to projects_path, notice: "Project successfully created." }
+        session[:new_project] = project
+        format.html { redirect_to projects_path, notice: "Project successfully created.", new_project: project }
       else
-        # format.turbo_stream
+        format.turbo_stream
         # format.html { error: "Error creating project." }
       end
     end

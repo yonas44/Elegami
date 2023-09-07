@@ -4,7 +4,13 @@ export default class extends Controller {
   static targets = ["modal", "form", "detail"];
 
   initialize() {
-    this.selectedProject = null;
+    this.selectedProject = this.data.get("selectedProject");
+    if (this.selectedProject) {
+      this.newProject = JSON.parse(this.selectedProject);
+      // Now this.newProject contains your @new_project data
+      console.log(this.newProject);
+    }
+    console.log(this.element);
 
     document.addEventListener("flash:connect", ({ detail: { content } }) => {
       if (content.includes("Project successfully created.")) this.show();
