@@ -1,20 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["modal", "form", "detail"];
+  static targets = ["modal", "form", "detail", "title"];
 
   initialize() {
-    this.selectedProject = this.data.get("selectedProject");
-    if (this.selectedProject) {
-      this.newProject = JSON.parse(this.selectedProject);
-      // Now this.newProject contains your @new_project data
-      console.log(this.newProject);
-    }
-    console.log(this.element);
+    this.allProjects = JSON.parse(this.element.dataset.projects);
+    const newProject = JSON.parse(this.element.dataset.newproject);
 
-    document.addEventListener("flash:connect", ({ detail: { content } }) => {
-      if (content.includes("Project successfully created.")) this.show();
-    });
+    if (newProject) {
+      this.show(newProject);
+    }
   }
 
   toggleOn() {
@@ -27,7 +22,15 @@ export default class extends Controller {
     this.modalTarget.classList.remove("flex");
   }
 
-  show() {
+  handleSelect(event) {
+    const selectedProject = this.allProjects.find(
+      (item) => item.id == event.currentTarget.dataset.id
+    );
+    this.show(selectedProject);
+  }
+
+  show(project) {
+    this.titleTarget.textContent = project?.title;
     this.detailTarget.classList.remove("translate-x-full");
     this.detailTarget.classList.add("translate-x-0");
   }
