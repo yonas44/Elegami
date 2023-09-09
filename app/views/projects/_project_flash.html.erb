@@ -10,6 +10,12 @@
   </span>
   <div>
     <p class="font-bold"><%= success ? "Success!" : "Error!" %></p>
-    <p><%= success || error %></p>
+    <% if success %>
+      <p><%= success %></p>
+    <% else %>
+      <% errors.each do |error, index| %>
+        <p><span><%= errors.count > 1 ? '-' : '' %></span> <span><%= error %></span></p>
+      <% end %>
+    <% end %>
   </div>
 </div>
