@@ -11,7 +11,7 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' %>
   </head>
-  <body>
+  <body class="font-custom">
     <div class="relative z-30" id="flash_container">
       <% if flash.now[:notice] || flash.now[:error] %>
         <div class="border-2 px-4 py-3 rounded-md fixed top-2 right-2 flex items-center gap-4 <%= flash.now[:notice] ? "bg-[#c9f1db] border-[#afffb8]" : "bg-[#fad9d7] border-[#f7bbb8] translate-x-full" %>" data-controller="flash" data-flash-target="message">
@@ -34,7 +34,7 @@
     <% if user_signed_in? %>
       <%= render "layouts/header" %>
     <% end %>
-    <main class="flex h-screen w-screen">
+    <main class="min-h-screen w-screen bg-[#21253F] text-white ">
       <%= yield %>
     </main>
   </body>
