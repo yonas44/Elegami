@@ -1,0 +1,41 @@
+<div class="flex w-full my-10 justify-around" data-project-target="milestoneWindow" data-name="overview">
+  <div>
+    <p class=""><span>Total tasks:</span> <span><%= 20 %></span></p>
+  </div>
+  <div class="w-2/5 aspect-1 flex">
+    <canvas id="myChart" class="w-full h-full"></canvas>
+  </div>
+</div>
+<script>
+  var data = {
+  labels: [
+    'Completed',
+    'In progress',
+    'On review',
+    'Unassigned'
+  ],
+  datasets: [{
+    data: [300, 50, 100, 50],
+     backgroundColor: [
+      'rgb(46, 204, 113)',
+      'rgb(52, 152, 219)',
+      'rgb(155, 89, 182)',
+      'rgb(165, 165, 165)',
+    ],
+    hoverOffset: 4
+  }]
+  };
+
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: data,
+  options: {
+    responsive: true,
+    aspectRatio: 1,
+    legend: {
+      display: false // This will hide the legend
+    }
+  }
+  });
+</script>
