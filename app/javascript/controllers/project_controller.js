@@ -4,22 +4,16 @@ export default class extends Controller {
   static targets = [
     "modal",
     "form",
-    "detail",
-    "title",
-    "description",
     "filterable",
+    "milestone",
+    "milestoneTab",
+    "milestoneWindow",
+    "milestoneModal",
   ];
 
   initialize() {
-    this.allProjects = JSON.parse(this.element.dataset.projects);
-    this.searchInput = "";
-    const newProject = JSON.parse(this.element.dataset.newproject);
-    this.selectedProjectId = null;
-
-    this.BASE_URL = "http://localhost:3000";
-
-    if (newProject) {
-      this.show(newProject);
+    if (this.milestoneTargets.length) {
+      this.milestoneTargets[0].classList.add("border-r-4", "border-r-sky-700");
     }
   }
 
@@ -31,6 +25,7 @@ export default class extends Controller {
   toggleOff() {
     this.modalTarget.classList.add("hidden");
     this.modalTarget.classList.remove("flex");
+    this.formTarget.reset();
   }
 
   // handleSelect(event) {
@@ -74,9 +69,12 @@ export default class extends Controller {
   //   console.log(projectId);
   // });
 
+  // Reset the new project form
   reset() {
     this.toggleOff();
-    this.formTarget.reset();
+    this.formTargets.forEach((item) => {
+      item.reset();
+    });
   }
 
   handleSearch(event) {
@@ -107,5 +105,46 @@ export default class extends Controller {
       message.textContent = "There are no projects with that name";
       projectsList.appendChild(message);
     }
+  }
+
+  // Toggle the milestone options in the project
+  handleMilestoneSelect(event) {
+    this.milestoneTargets.forEach((item) => {
+      item.classList.remove("border-r-4", "border-r-sky-700");
+    });
+    event.currentTarget.classList.add("border-r-4", "border-r-sky-700");
+  }
+
+  // Method to toggle the milestone windows based on the selected tab
+  handleMilestoneTabSwitch(event) {
+    const tabName = event.currentTarget.dataset.id;
+
+    // Loop through milestoneTabs to background to the selected tab
+    this.milestoneTabTargets.forEach((item) => {
+      if (item.dataset.id === tabName) {
+        item.classList.add("bg-gray-200");
+      } else {
+        item.classList.remove("bg-gray-200");
+      }
+    });
+
+    this.milestoneWindowTargets.forEach((item) => {
+      const isMatchingTab = item.dataset.name === tabName;
+      item.classList.toggle("hidden", !isMatchingTab);
+      item.classList.toggle("flex", isMatchingTab);
+    });
+  }
+
+  // Handle milestone modal option selection for delete and update
+  handleMilestoneOption(event) {
+    event.stopPropagation();
+    console.log(event.currentTarget.dataset.id);
+  }
+
+  // Handle new milestone modal toggle
+  milestoneModalToggle() {
+    this.milestoneModalTarget.classList.toggle("hidden");
+    this.milestoneModalTarget.classList.toggle("flex");
+    // this.reset();
   }
 }
