@@ -3,35 +3,42 @@ class MilestonesController < ApplicationController
     @milestones = Project.includes(:milestones).find(params[:project_id])
   end
 
-  def create
-    milestone = Project.find(params[:project_id]).milestones.create(milestone_params)
-
-    respond_to do |format|
-      if milestone.save
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append(
-            "milestone_container",
-            partial: 'partials/projects/single_milestone',
-            locals: { milestone: milestone }
-          )  
-          render turbo_stream: turbo_stream.append(
-            "flash_container",
-            partial: 'partials/projects/project_flash',
-            locals: { success: "Milestone created successfully!", errors: nil}
-          )
-        end
-      else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append(
-            "flash_container",
-            partial: 'partials/projects/project_flash',
-            locals: { errors: milestone.errors.full_messages, success: nil }
-          )
-        end
-      end
+  def show
+    @milestone = Milestone.includes(:tasks, :project).find(params[:id])
+    if !@milestone.nil?
+      render turbo_stream: turbo_stream.replace(
+        "milestone_detail_wrapper",
+        partial: 'partials/projects/milestone_detail',
+        locals: { project: @milestone.project, milestone: @milestone }
+      )  
+    else
+      render turbo_stream: turbo_stream.replace(
+        "flash_container",
+        partial: 'partials/shared/flash',
+        locals: { errors: milestone.errors.full_messages, success: nil }
+      )
     end
   end
+  
+  def create
+    @milestone = Milestone.create(milestone_params.merge(project_id: params[:project_id]))
+    @project = Project.includes(:milestones).find(params[:project_id])
 
+    respond_to do |format|
+      format.turbo_stream 
+    end
+  end
+  
+  def destroy
+    @milestone = Milestone.find(params[:id])
+    @milestone.destroy
+    @project = Project.includes(:milestones).find(params[:project_id])
+    
+    respond_to do |format|
+      format.turbo_stream 
+    end
+  end 
+    
   private
 
   def milestone_params
