@@ -1,0 +1,12 @@
+<div class="flex gap-5 h-full" id="milestone_container">
+  <% if project.milestones.count > 0 %>
+    <ul class="border border-gray-300 rounded-md min-w-max overflow-auto">
+      <% project.milestones.each do |milestone| %>
+        <%= render 'partials/projects/single_milestone', project: project, milestone: milestone %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="italic text-gray-500 text-sm">There are no milestone created for this project
+      <p>
+      <% end %>
+    </div>
