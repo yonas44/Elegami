@@ -14,20 +14,14 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(project_params)
+    @project = Project.new(project_params)
     
     respond_to do |format|
-      if project.save
-        current_user.project_users.create(project: project, role: 'admin')
-        format.html { redirect_to project_path(project), notice: "Project successfully created." }
+      if @project.save
+        current_user.project_users.create(project: @project, role: 'admin')
+        format.html { redirect_to project_path(@project), notice: "Project successfully created." }
       else
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append(
-            "flash_container",
-            partial: 'partials/shared/flash',
-            locals: { errors: project.errors.full_messages, success: nil }
-          )
-        end
+        format.turbo_stream
       end
     end
   end
