@@ -8,14 +8,17 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.includes(project_users: [:user], milestones: []).find(params[:id])
+    @project_admin = @project.project_users.find_by(role: 'admin').user
+    @milestone = Milestone.new
   end
 
   def create
     project = Project.new(project_params)
-  
+    
     respond_to do |format|
       if project.save
+        current_user.project_users.create(project: project, role: 'admin')
         format.html { redirect_to project_path(project), notice: "Project successfully created." }
       else
         format.turbo_stream do
