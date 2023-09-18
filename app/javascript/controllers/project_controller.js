@@ -9,13 +9,10 @@ export default class extends Controller {
     "milestoneTab",
     "milestoneWindow",
     "milestoneModal",
+    "milestoneOption",
   ];
 
-  initialize() {
-    if (this.milestoneTargets.length) {
-      this.milestoneTargets[0].classList.add("border-r-4", "border-r-sky-700");
-    }
-  }
+  initialize() {}
 
   toggleOn() {
     this.modalTarget.classList.add("flex");
@@ -107,12 +104,12 @@ export default class extends Controller {
     }
   }
 
-  // Toggle the milestone options in the project
+  // Handle toggle of a milestone list in a project
   handleMilestoneSelect(event) {
     this.milestoneTargets.forEach((item) => {
       item.classList.remove("border-r-4", "border-r-sky-700");
     });
-    event.currentTarget.classList.add("border-r-4", "border-r-sky-700");
+    event?.currentTarget.classList.add("border-r-4", "border-r-sky-700");
   }
 
   // Method to toggle the milestone windows based on the selected tab
@@ -137,8 +134,21 @@ export default class extends Controller {
 
   // Handle milestone modal option selection for delete and update
   handleMilestoneOption(event) {
-    event.stopPropagation();
-    console.log(event.currentTarget.dataset.id);
+    const clickedOptionId = event.currentTarget.dataset.id;
+
+    this.milestoneOptionTargets.forEach((item) => {
+      const optionId = item.dataset.optionid;
+
+      if (optionId === clickedOptionId) {
+        // Toggle visibility for the clicked item
+        item.classList.toggle("hidden");
+        item.classList.toggle("block");
+      } else {
+        // Hide all other items
+        item.classList.add("hidden");
+        item.classList.remove("block");
+      }
+    });
   }
 
   // Handle new milestone modal toggle
