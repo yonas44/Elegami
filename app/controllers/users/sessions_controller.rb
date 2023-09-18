@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
             "flash_container",
-            partial: 'partials/projects/project_flash',
+            partial: 'partials/shared/flash',
             locals: { errors: ["Login Failed, invalid credentials!"], success: nil }
           )
         end

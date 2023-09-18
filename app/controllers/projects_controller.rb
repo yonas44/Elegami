@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
             "flash_container",
-            partial: 'partials/projects/project_flash',
+            partial: 'partials/shared/flash',
             locals: { errors: project.errors.full_messages, success: nil }
           )
         end
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
             "flash_container",
-            partial: 'projects/project_flash',
+            partial: 'shared/flash',
             locals: { errors: @selected_project.errors.full_messages }
           )
         end
