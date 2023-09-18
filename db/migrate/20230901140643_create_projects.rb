@@ -4,7 +4,6 @@ class CreateProjects < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :description
       t.integer :priority
-      t.references :user, null: false, foreign_key: true
       t.boolean :completed, default: false
       t.boolean :public, default: false
 
