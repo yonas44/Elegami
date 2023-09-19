@@ -1,4 +1,4 @@
-<section class="flex-1" id="milestone_detail_wrapper">
+<section class="flex-1 w-full overflow-auto" id="milestone_detail_wrapper">
   <nav class="flex">
     <ul class="w-full flex justify-around items-center border shadow-md border-gray-300 rounded-tr-md rounded-tl-md">
       <li class="flex-1 text-center min-w-max p-4 cursor-pointer bg-gray-200" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="overview">Overview</li>
@@ -6,7 +6,7 @@
       <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="members">Team members</li>
       <ul>
       </nav>
-      <%= render 'partials/projects/overview' %>
-      <%= render 'partials/projects/tasks_list' %>
-      <%= render 'partials/projects/members' %>
+      <%= render 'partials/projects/overview', milestone: %>
+      <%= render 'partials/projects/tasks_list', milestone: milestone, task: task %>
+      <%= render 'partials/projects/members', milestone: %>
     </section>
