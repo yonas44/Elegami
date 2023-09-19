@@ -10,6 +10,7 @@ export default class extends Controller {
     "milestoneWindow",
     "milestoneModal",
     "milestoneOption",
+    "taskModal",
   ];
 
   initialize() {}
@@ -128,7 +129,7 @@ export default class extends Controller {
     this.milestoneWindowTargets.forEach((item) => {
       const isMatchingTab = item.dataset.name === tabName;
       item.classList.toggle("hidden", !isMatchingTab);
-      item.classList.toggle("flex", isMatchingTab);
+      item.classList.toggle("block", isMatchingTab);
     });
   }
 
@@ -155,6 +156,17 @@ export default class extends Controller {
   milestoneModalToggle() {
     this.milestoneModalTarget.classList.toggle("hidden");
     this.milestoneModalTarget.classList.toggle("flex");
-    // this.reset();
+    this.formTargets.forEach((item) => {
+      item.reset();
+    });
+  }
+
+  // Handle new task modal toggle
+  taskModalToggle() {
+    this.taskModalTarget.classList.toggle("hidden");
+    this.taskModalTarget.classList.toggle("flex");
+    this.formTargets.forEach((item) => {
+      item.reset();
+    });
   }
 }
