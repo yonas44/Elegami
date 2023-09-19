@@ -1,14 +1,14 @@
-<div class="flex gap-5 h-full" id="milestone_container">
-  <% if project.milestones.count > 0 %>
-    <ul class="border border-gray-300 rounded-md min-w-max overflow-auto">
-      <% project.milestones.each do |milestone| %>
-        <%= turbo_frame_tag dom_id(milestone) do %>
+<div id="milestone_container">
+  <turbo-frame id="<%= milestone.id %>">
+    <% if project.milestones.count > 0 %>
+      <ul class="h-[400px] overflow-auto py-5 rounded-md min-w-max">
+        <% project.milestones.each do |milestone| %>
           <%= render 'partials/projects/single_milestone', project: project, milestone: milestone %>
         <% end %>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="italic text-gray-500 text-sm">There are no milestone created for this project
-      <p>
-      <% end %>
+      </ul>
+    <% else %>
+      <p class="italic text-gray-500 text-sm">There are no milestone created for this project
+        <p>
+        <% end %>
+      </turbo-frame>
     </div>

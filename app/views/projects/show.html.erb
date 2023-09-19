@@ -22,10 +22,10 @@
         </button>
         <%= render 'partials/projects/new_milestone_modal', project: @project, milestone: @milestone %>
       </div>
-      <div class="flex-1 flex gap-5">
-        <div id="milestone_container" class="flex gap-5 h-full">
+      <div class="flex-1 flex gap-10">
+        <div id="milestone_container">
           <% if @project.milestones.count > 0 %>
-            <ul class="border border-gray-300 rounded-md min-w-max overflow-auto">
+            <ul class="h-[400px] overflow-auto py-5 rounded-md min-w-max">
               <% @project.milestones.each do |milestone| %>
                 <%= render 'partials/projects/single_milestone', project: @project, milestone: milestone %>
               <% end %>
