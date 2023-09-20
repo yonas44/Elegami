@@ -7,10 +7,21 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def edit
+    @project = Project.find(params[:id])
+  end
+
   def show
     @project = Project.includes(project_users: [:user], milestones: []).find(params[:id])
     @project_admin = @project.project_users.find_by(role: 'admin').user
     @milestone = Milestone.new
+    @task = Task.new
+    @project_user = ProjectUser.new
+  
+    # Query for users not associated with the project
+    @users = User.where.not(id: @project.project_users.pluck(:user_id))
+  
+    @first_milestone = @project.milestones.first
   end
 
   def create
@@ -20,6 +31,18 @@ class ProjectsController < ApplicationController
       if @project.save
         current_user.project_users.create(project: @project, role: 'admin')
         format.html { redirect_to project_path(@project), notice: "Project successfully created." }
+      else
+        format.turbo_stream
+      end
+    end
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    
+    respond_to do |format|
+      if @project.update(project_params)
+        format.html { redirect_to project_path(@project), notice: "Project updated!" }
       else
         format.turbo_stream
       end
@@ -49,6 +72,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :due_date, :priority, :completed).merge(public: params[:public])
+    params.require(:project).permit(:title, :description, :start_date, :due_date, :priority, :public, :completed)
   end
 end
