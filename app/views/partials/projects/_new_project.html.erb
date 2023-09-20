@@ -8,8 +8,9 @@
     <div class="field my-5">
       <%= f.text_area :description, autofocus: true, autocomplete: "description", class: "border-none shadow-inner p-3", placeholder: 'Description here..' %>
     </div>
-    <div class="field my-5">
-      <label for="public">Public: <%= f.check_box :public, name: 'public' %></label>
+    <div class="my-5">
+      <label class="text-gray-500">Privacy</label>
+      <%= f.select :public, [["Public", true], ["Private", false]], {}, { class: "text-green-500 italic text-md border-none bg-transparent px-2 w-max pr-10", autofocus: true } %>
     </div>
     <div class="actions flex gap-3 items-center">
       <%= f.submit "Create", class: "bg-green-500 text-white px-3 py-1 rounded-md" %>
