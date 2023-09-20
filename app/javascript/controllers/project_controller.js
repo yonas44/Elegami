@@ -5,12 +5,15 @@ export default class extends Controller {
     "modal",
     "form",
     "filterable",
+    "projectTab",
+    "projectWindow",
     "milestone",
     "milestoneTab",
     "milestoneWindow",
     "milestoneModal",
     "milestoneOption",
     "taskModal",
+    "memberModal",
   ];
 
   initialize() {}
@@ -113,12 +116,12 @@ export default class extends Controller {
     event?.currentTarget.classList.add("border-r-4", "border-r-sky-700");
   }
 
-  // Method to toggle the milestone windows based on the selected tab
-  handleMilestoneTabSwitch(event) {
+  // Method to toggle the project windows based on the selected tab
+  handleProjectTabSwitch(event) {
     const tabName = event.currentTarget.dataset.id;
 
     // Loop through milestoneTabs to background to the selected tab
-    this.milestoneTabTargets.forEach((item) => {
+    this.projectTabTargets.forEach((item) => {
       if (item.dataset.id === tabName) {
         item.classList.add("bg-gray-200");
       } else {
@@ -126,10 +129,30 @@ export default class extends Controller {
       }
     });
 
+    this.projectWindowTargets.forEach((item) => {
+      const isMatchingTab = item.dataset.name === tabName;
+      item.classList.toggle("hidden", !isMatchingTab);
+      item.classList.toggle("flex", isMatchingTab);
+    });
+  }
+
+  // Method to toggle the milestone windows based on the selected tab
+  handleMilestoneTabSwitch(event) {
+    const tabName = event.currentTarget.dataset.id;
+
+    // Loop through milestoneTabs to background to the selected tab
+    this.milestoneTabTargets.forEach((item) => {
+      if (item.dataset.id === tabName) {
+        item.classList.add("border-b", "border-gray-500", "font-semibold");
+      } else {
+        item.classList.remove("border-b", "border-gray-500", "font-semibold");
+      }
+    });
+
     this.milestoneWindowTargets.forEach((item) => {
       const isMatchingTab = item.dataset.name === tabName;
       item.classList.toggle("hidden", !isMatchingTab);
-      item.classList.toggle("block", isMatchingTab);
+      item.classList.toggle("flex", isMatchingTab);
     });
   }
 
@@ -165,6 +188,15 @@ export default class extends Controller {
   taskModalToggle() {
     this.taskModalTarget.classList.toggle("hidden");
     this.taskModalTarget.classList.toggle("flex");
+    this.formTargets.forEach((item) => {
+      item.reset();
+    });
+  }
+
+  // Handle new project member modal toggle
+  memberModalToggle() {
+    this.memberModalTarget.classList.toggle("hidden");
+    this.memberModalTarget.classList.toggle("flex");
     this.formTargets.forEach((item) => {
       item.reset();
     });

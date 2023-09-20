@@ -1,11 +1,11 @@
-<li class="relative hover:bg-gray-100">
+<li class="relative hover:bg-gray-200">
   <%= button_to milestone_path(milestone), method: :get, class: "py-5 border-b border-b-gray-300 px-3 cursor-pointer text-start w-full pr-10", data: { action: "click->project#handleMilestoneSelect", project_target: "milestone" }, remote: true do %>
     <%= milestone['title'] %>
   <% end %>
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer absolute inset-0 my-auto right-2 ml-auto w-6 h-6" data-action="click->project#handleMilestoneOption:stop" data-id="<%= milestone.id %>">
     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
   </svg>
-  <div class="bg-gray-200 z-10 shadow-md px-3 py-2 absolute bottom-auto w-full hidden" data-controller="confirmation" data-project-target="milestoneOption" data-optionid="<%= milestone.id %>">
+  <div class="bg-gray-200 z-10 shadow-md px-3 py-2 absolute bottom-auto w-full hidden border-t border-gray-300" data-controller="confirmation" data-project-target="milestoneOption" data-optionid="<%= milestone.id %>">
     <ul>
       <li class="flex items-center gap-2 cursor-pointer" data-action="click->confirmation#toggle">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
