@@ -1,0 +1,119 @@
+<div class="bg-white px-6 py-10 flex-col" data-project-target="projectWindow" data-name="overview" data-project="<%= project.to_json %>" data-milestones="<%= project.milestones.to_json %>">
+  <turbo-frame id="<%= project.id %>">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h2 class="text-3xl font-semibold"><%= project.title %></h2>
+        <p class="text-gray-500">Summary of Project Details</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-500">Project Start Date</p>
+        <p class="text-md font-semibold">
+          <%= project.start_date&.strftime('%B %d, %Y') || '-' %>
+        </p>
+      </div>
+      <div class="mb-4">
+        <p class="text-gray-500">Project Due Date</p>
+        <p class="text-md font-semibold">
+          <%= project.due_date&.strftime('%B %d, %Y') || '-' %>
+        </p>
+      </div>
+    </div>
+    <div class="flex justify-between">
+      <div class="w-2/5">
+        <div class="mb-4">
+          <p class="text-gray-500">Total Milestones</p>
+          <h3 class="text-3xl font-semibold text-blue-500">
+            <%= project.milestones.count %>
+          </h3>
+        </div>
+      </div>
+      <div class="flex-1">
+        <canvas id="projectChart"></canvas>
+      </div>
+    </div>
+    <div>
+      <!-- Add any project-specific content here -->
+    </div>
+    <div>
+      <%= button_to edit_project_path(project), method: :get do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#008000" class="w-5 h-5 cursor-pointer">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+        </svg>
+      <% end %>
+    </div>
+  </turbo-frame>
+</div>
+<script>
+  var project = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-project'));
+  var milestones = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-milestones'));
+
+  var calculateDateDiff = () => {
+    const diff = new Date(project.due_date) - new Date(project.start_date);
+    const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+    if (diff) {
+      return diffInDays + 1;
+    }
+    return 0;
+  };
+
+  var generateData = () => {
+    const dateDiff = calculateDateDiff()
+    const days = [];
+    let day = new Date(project.start_date);
+
+    for (let i = 0; i < dateDiff; i++) {
+      days.push(day.getDate());
+      day.setDate(day.getDate() + 1);
+    }
+
+    return days;
+  }
+
+  var generateLabels = () => {
+    const milestoneNames = [];
+
+    milestones.forEach(item => {
+      milestoneNames.push(item.title)
+    });
+
+    return milestoneNames;
+  }
+
+  console.log('Data', generateData())
+  console.log('labels', generateLabels())
+
+  var data = {
+    labels: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'],
+    datasets: [{
+      data: [34, 54, 22, 231, 22, 123],
+      backgroundColor: [
+        'rgb(46, 204, 113)',
+        'rgb(52, 152, 219)',
+        'rgb(155, 89, 182)',
+        'rgb(165, 165, 165)',
+      ],
+      hoverOffset: 4,
+      barPercentage: 0.5
+    }]
+  };
+
+  var ctx = document.getElementById('projectChart');
+  var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: data,
+    options: {
+      responsive: true,
+      legend: {
+        display: false // This will hide the legend
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'day'
+          }
+        }
+      }
+    }
+  });
+</script>
