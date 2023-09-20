@@ -1,6 +1,5 @@
 <turbo-frame id="<%= @milestone.id %>">
   <%= form_for(@milestone, url: milestone_path(project_id: @milestone.project_id), method: :patch) do |f| %>
-    <%= render "devise/shared/error_messages", resource: @milestone %>
     <div class="pr-6">
       <div class="mb-4">
         <label class="text-gray-500 block">Title</label>
