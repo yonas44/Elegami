@@ -1,4 +1,4 @@
-<div class="my-5 hidden w-full overflow-auto flex-col gap-5" data-project-target="milestoneWindow" data-name="tasks">
+<div class="my-5 hidden w-full overflow-auto flex-col" data-project-target="milestoneWindow" data-name="tasks">
   <button class="flex items-center gap-2 bg-green-500 text-white rounded-lg py-2 px-3 w-fit ml-auto mb-3" data-action="project#taskModalToggle">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -6,12 +6,12 @@
     <span>Add Task</span>
   </button>
   <div id="tasks_container">
-    <% if milestone.tasks.count > 0 %>
-      <%= render 'partials/tasks/tasks_table', tasks: milestone.tasks %>
+    <% if incomplete_tasks.count > 0 %>
+      <%= render 'partials/tasks/tasks_table', tasks: incomplete_tasks, project_id: milestone.project.id %>
     <% else %>
       <p class="italic text-gray-500 text-center text-sm w-full">There are no tasks created for this milestone
         <p>
         <% end %>
       </div>
     </div>
-    <%= render 'partials/tasks/new_task_modal', task: task, milestone: milestone, project: milestone.project %>
+    <%= render 'partials/tasks/new_task_modal', new_task: new_task, milestone: milestone, project: milestone.project, members:  %>
