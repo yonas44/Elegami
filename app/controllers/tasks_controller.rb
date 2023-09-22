@@ -40,6 +40,7 @@ class TasksController < ApplicationController
     @milestone = Milestone.includes(:tasks, :project).find(@task.milestone_id)
     @new_task = Task.new
     @all_tasks = filtered_tasks(@milestone)
+    @project_users = ProjectUser.includes(:user).where(project_id: @milestone.project_id)
 
     if task_params[:status] != 'Completed'
       # Get the current user_ids associated with the task

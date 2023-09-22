@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.string :description, null: false
       t.string :priority, default: 'Low'
       t.references :milestone, null: false, foreign_key: true
-      t.string :status, default: 'unassigned'
+      t.string :status, default: 'Unassigned'
 
       t.timestamps
     end
