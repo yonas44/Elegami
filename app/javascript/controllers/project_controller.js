@@ -14,6 +14,7 @@ export default class extends Controller {
     "milestoneOption",
     "taskModal",
     "memberModal",
+    "taskMemberModal",
   ];
 
   initialize() {}
@@ -200,5 +201,11 @@ export default class extends Controller {
     this.formTargets.forEach((item) => {
       item.reset();
     });
+  }
+
+  // Handle task member modal to add contributors for a task
+  taskMemberModalToggle() {
+    this.taskMemberModalTarget.classList.toggle("hidden");
+    this.taskMemberModalTarget.classList.toggle("flex");
   }
 }

@@ -1,6 +1,6 @@
 <turbo-frame id="<%= @milestone.id %>">
   <% if !@milestone.errors.any? %>
-    <%= turbo_stream.replace "milestone_detail_wrapper", partial: 'partials/projects/milestone_detail', locals: { milestone: @milestone, task: @task } %>
+    <%= turbo_stream.replace "milestone_detail_wrapper", partial: 'partials/projects/milestone_detail', locals: { milestone: @milestone, new_task: @new_task, incomplete_tasks: @all_tasks[:incomplete_tasks], completed_tasks: @all_tasks[:completed_tasks], project_users: @project_users } %>
     <%= turbo_stream.replace "milestone_container", partial: 'partials/projects/milestone_list', locals: { milestone: @milestone, project: @project } %>
     <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Milestone updated!", errors: nil } %>
   <% else %>
