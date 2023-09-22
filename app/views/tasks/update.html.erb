@@ -1,2 +1,4 @@
-<h1>Tasks#update</h1>
-<p>Find me in app/views/tasks/update.html.erb</p>
+<turbo-frame id="<%= @task.id %>">
+  <%= render 'partials/tasks/single_task', task: @task %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Task update!", errors: nil } %>
+</turbo-frame>

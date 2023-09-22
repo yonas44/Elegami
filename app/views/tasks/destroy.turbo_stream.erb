@@ -1,0 +1,6 @@
+<% if @task.errors.any? %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @task.errors.full_messages } %>
+<% else %>
+  <%= turbo_stream.replace "tasks_container", partial: 'partials/tasks/tasks_table', locals: { tasks: @incomplete_tasks } %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Task removed!", errors: nil } %>
+<% end %>
