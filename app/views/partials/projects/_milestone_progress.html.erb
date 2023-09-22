@@ -6,8 +6,9 @@
         <p class="text-gray-500">Summary of Milestone Details</p>
       </div>
       <div class="flex items-center space-x-2">
+        <p class="text-gray-500">Status</p>
         <span class="text-green-500 italic text-lg">
-          <%= milestone.status || 'Not-started' %>
+          <%= milestone.status || 'Not started' %>
         </span>
       </div>
     </div>
@@ -26,7 +27,7 @@
           </p>
         </div>
       </div>
-      <div class="w-1/3">
+      <div class="w-1/5">
         <canvas id="myChart" class="w-full h-auto"></canvas>
       </div>
     </div>
@@ -44,22 +45,22 @@
 
   var generateData = () => {
     let status = {
-      completed: 0,
-      in_progress: 0,
-      on_review: 0,
-      unassigned: 0
+      Completed: 0,
+      In_progress: 0,
+      On_review: 0,
+      Unassigned: 0
     }
 
     tasksData.forEach(item => {
       status[item.status] += 1;
     })
-    return [status.completed, status.in_progress, status.on_review, status.unassigned]
+    return [status.Completed, status.In_progress, status.On_review, status.Unassigned]
   }
   var data = {
     labels: [
       'Completed',
-      'In Progress',
-      'On Review',
+      'In progress',
+      'On review',
       'Unassigned'
     ],
     datasets: [{
