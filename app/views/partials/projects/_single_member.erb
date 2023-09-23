@@ -1,5 +1,5 @@
-<li class="grid grid-cols-12 group text-sm text-gray-900">
-  <div class="px-6 py-3 text-left text-xs col-span-1 flex items-center">1</div>
+<li class="grid grid-cols-12 group text-sm text-gray-900" id="project_user<%= member.id %>">
+  <div class="px-6 py-3 text-left text-xs col-span-1 flex items-center"><%= index + 1 %>.</div>
   <div class="px-6 py-3 text-left text-xs col-span-4 font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
     <img src="https://avatars.githubusercontent.com/u/72081991?v=4" alt="profile_pic" class="w-16 h-16 rounded-full" />
     <div class="flex flex-col justify-center">
@@ -7,13 +7,20 @@
       <p class=""><%= member.user.email %></p>
     </div>
   </div>
-  <div class="px-6 py-3 text-left text-xs col-span-2 font-medium text-gray-500 tracking-wider whitespace-nowrap flex items-center">
-    <%= member.role %> <!-- Adjust to display the member's role -->
+  <div class="px-6 py-3 text-left text-xs col-span-2 font-medium capitalize text-gray-500 tracking-wider whitespace-nowrap flex items-center">
+    <%= member.role || '-' %> <!-- Adjust to display the member's role -->
   </div>
   <div class="px-6 py-3 text-left text-xs col-span-3 font-medium text-gray-500 tracking-wider whitespace-nowrap flex items-center">
-    <%= 'Web-developer' %> <!-- Adjust to display the member's profession -->
+    <%= 'Web-developer' || '-' %> <!-- Adjust to display the member's profession -->
   </div>
-  <div class="px-6 py-3 text-left text-xs col-span-2 flex items-center"> <!-- Adjust the class as needed -->
-    <!-- Content for the last column -->
-  </div>
+  <% if current_user.id != member.user.id %>
+    <div class="px-6 py-3 text-left text-xs col-span-2 flex items-center" data-controller="confirmation" data-id="<%= member.id %>"> <!-- Adjust the class as needed -->
+      <button type="button" data-action="confirmation#toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+        </svg>
+      </button>
+      <%= render 'partials/shared/confirm_modal', path_url: project_user_path(member) %>
+    </div>
+  <% end %>
 </li>

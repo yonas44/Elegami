@@ -64,7 +64,7 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.require(:milestone).permit(:title, :due_date, :status)
+    params.require(:milestone).permit(:title, :start_date, :due_date, :status)
   end
 
   def filtered_tasks(milestone)

@@ -14,14 +14,12 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.includes(project_users: [:user], milestones: []).find(params[:id])
     @project_admin = @project.project_users.find_by(role: 'admin').user
-    @milestone = Milestone.new
+    @new_milestone = Milestone.new
     @task = Task.new
     @project_user = ProjectUser.new
   
     # Query for users not associated with the project
-    @users = User.where.not(id: @project.project_users.pluck(:user_id))
-  
-    @first_milestone = @project.milestones.first
+    @non_members = User.where.not(id: @project.project_users.pluck(:user_id))
   end
 
   def create
@@ -59,7 +57,7 @@ class ProjectsController < ApplicationController
             "flash_container",
             partial: 'shared/flash',
             locals: { errors: @selected_project.errors.full_messages }
-          )
+          ) 
         end
       end
     end
