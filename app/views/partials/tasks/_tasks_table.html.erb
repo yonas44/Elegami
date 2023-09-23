@@ -8,10 +8,15 @@
       <span class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider col-span-2">Status</span>
       <span class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider col-span-2"></span>
     </header>
-    <ul class="bg-white divide-y divide-gray-200">
-      <% tasks.each do |task| %>
-        <%= render 'partials/tasks/single_task', task: task %>
-      <% end %>
-    </ul>
-  </div>
-</div>
+    <% if tasks.count > 0 %>
+      <ul class="bg-white divide-y divide-gray-200">
+        <% tasks.each do |task| %>
+          <%= render 'partials/tasks/single_task', task: task %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="italic text-gray-500 text-center text-sm w-full my-5">There are no tasks created for this milestone
+        <p>
+        <% end %>
+      </div>
+    </div>
