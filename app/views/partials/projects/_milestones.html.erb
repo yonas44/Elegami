@@ -6,7 +6,7 @@
       </svg>
       <span>Create Milestone</span>
     </button>
-    <%= render 'partials/projects/new_milestone_modal', project: project, milestone: milestone %>
+    <%= render 'partials/projects/new_milestone_modal', project: project, new_milestone: new_milestone %>
   </div>
   <div class="flex-1 flex gap-5 justify-center">
     <div id="milestone_container" class="bg-gray-100 flex">
@@ -21,11 +21,18 @@
           <p>
           <% end %>
         </div>
-        <section id="milestone_detail_wrapper" class="flex-1 flex">
+        <section id="milestone_detail_wrapper" class="flex-1">
           <% if project.milestones.count > 0 %>
-            <p class="italic text-gray-500 text-sm text-center w-full my-auto">Select a milestone to preview</p>
-          <% end %>
-        </section>
+            <nav class="flex">
+              <ul class="w-full flex justify-around items-center border-b border-gray-200 rounded-tr-md rounded-tl-md">
+                <li class="flex-1 text-center min-w-max p-4 border-b border-gray-500 font-semibold cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="progress">Progress</li>
+                <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="tasks">Tasks</li>
+                <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="completed">Completed</li>
+                <ul>
+                </nav>
+                <p class="italic text-gray-500 text-sm text-center w-full mt-10">Select a milestone to preview</p>
+              <% end %>
+            </section>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
