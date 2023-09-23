@@ -19,20 +19,37 @@
       </div>
     </div>
     <div class="flex justify-between">
-      <div class="w-2/5">
+      <div class="w-2/5 flex flex-col justify-around">
         <div class="mb-4">
           <p class="text-gray-500">Total Milestones</p>
           <h3 class="text-3xl font-semibold text-blue-500">
             <%= project.milestones.count %>
           </h3>
         </div>
+        <div class="mb-4">
+          <p class="text-gray-500">Project Status</p>
+          <% if project.milestones.count > 0 %>
+            <div class="flex gap-1 mt-2 items-end">
+              <p class="text-3xl font-semibold text-blue-500">
+                <span
+                data-controller="animated-number"
+                data-animated-number-start-value="0"
+                data-animated-number-end-value=<%= project.completion_percentage %>
+                data-animated-number-duration-value="1000"
+                >
+                  0
+                </span>%
+              </p>
+              <span class="italic text-gray-500 text-xs">completed</span>
+            </div>
+          <% else %>
+            <p class="text-3xl font-semibold text-gray-500">-</p>
+          <% end %>
+        </div>
       </div>
       <div class="flex-1">
         <canvas id="projectChart"></canvas>
       </div>
-    </div>
-    <div>
-      <!-- Add any project-specific content here -->
     </div>
     <div>
       <%= button_to edit_project_path(project), method: :get do %>
@@ -47,24 +64,15 @@
   var project = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-project'));
   var milestones = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-milestones'));
 
-  var calculateDateDiff = () => {
-    const diff = new Date(project.due_date) - new Date(project.start_date);
-    const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    if (diff) {
-      return diffInDays + 1;
-    }
-    return 0;
-  };
-
   var generateData = () => {
-    const dateDiff = calculateDateDiff()
-    const days = [];
-    let day = new Date(project.start_date);
 
-    for (let i = 0; i < dateDiff; i++) {
-      days.push(day.getDate());
-      day.setDate(day.getDate() + 1);
-    }
+    const days = [];
+
+    milestones.forEach(milestone => {
+      const startDate = new Date(milestone.start_date);
+      const dueDate = new Date(milestone.due_date);
+      days.push([startDate, dueDate]);
+    })
 
     return days;
   }
@@ -80,37 +88,63 @@
   }
 
   var data = {
-    labels: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'],
+    labels: generateLabels(),
     datasets: [{
-      data: [34, 54, 22, 231, 22, 123],
-      backgroundColor: [
-        'rgb(46, 204, 113)',
-        'rgb(52, 152, 219)',
-        'rgb(155, 89, 182)',
-        'rgb(165, 165, 165)',
-      ],
+      data: generateData(),
+      backgroundColor: milestones.map(milestone => {
+        if (milestone.status === 'Not_started') {
+          return 'rgb(165, 165, 165, 0.4)'
+        } else {
+          return 'rgb(52, 152, 219, 0.4)'
+        }
+      }),
       hoverOffset: 4,
-      barPercentage: 0.5
+      barPercentage: 0.5,
+      borderRadius: 2,
+      borderSkipped: false,
     }]
+  };
+
+  var todayLine = {
+    id: 'todayLine',
+    beforeDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = 'rgb(252, 103, 103)';
+      ctx.moveTo(x.getPixelForValue(new Date()),top);
+      ctx.lineTo(x.getPixelForValue(new Date()),bottom);
+      ctx.stroke();
+
+      ctx.setLineDash([6, 6])
+    },
   };
 
   var ctx = document.getElementById('projectChart');
   var myChart = new Chart(ctx, {
-    type: 'horizontalBar',
+    type: 'bar',
     data: data,
     options: {
+      indexAxis: 'y',
       responsive: true,
-      legend: {
-        display: false // This will hide the legend
+      plugins: {
+        legend: {
+          display: false
+        }
       },
       scales: {
         x: {
+          position: 'top',
+          min: new Date(project.start_date),
+          max: new Date(project.due_date),
           type: 'time',
           time: {
             unit: 'day'
           }
         }
       }
-    }
+    },
+    plugins: [todayLine],
   });
 </script>
