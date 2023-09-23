@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
@@ -12,13 +10,13 @@ class Users::SessionsController < Devise::SessionsController
   def create
     respond_to do |format|
       if current_user
-        format.html { redirect_to root_path, notice: "Signed in successfully." }
+        format.html { redirect_to root_path, notice: 'Signed in successfully.' }
       else
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(
-            "flash_container",
+            'flash_container',
             partial: 'partials/shared/flash',
-            locals: { errors: ["Login Failed, invalid credentials!"], success: nil }
+            locals: { errors: ['Login Failed, invalid credentials!'], success: nil }
           )
         end
       end

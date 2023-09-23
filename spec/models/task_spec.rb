@@ -7,7 +7,7 @@ RSpec.describe Task, type: :model do
   end
 
   it 'Creates a record' do
-    task = FactoryBot.create(:task, project_id: @project.id, created_by_id: @created_by.id)
+    FactoryBot.create(:task, project_id: @project.id, created_by_id: @created_by.id)
     expect(described_class.count).to be > 0
   end
 end
