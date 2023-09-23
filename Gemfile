@@ -67,6 +67,8 @@ group :development, :test do
   gem 'factory_bot_rails'
 
   gem 'database_cleaner'
+
+  gem 'chart-js-rails'
 end
 
 group :development do

@@ -14,7 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "stimulus_reflex": "^3.4.1"
+    "frappe-gantt": "^0.6.1",
+    "stimulus_reflex": "^3.4.1",
+    "stimulus-animated-number": "^4.1.0",
+    "stimulus-checkbox-select-all": "^5.2.0"
   },
   "devDependencies": {
     "stylelint": "^13.13.1",

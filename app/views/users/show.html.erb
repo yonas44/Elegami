@@ -15,16 +15,19 @@
         </div>
       </div>
     </section>
-    <div>
-      <nav class="flex justify-between bg-[#F7F7FC] rounded-lg p-2" data-controller="profile">
+    <section class="flex flex-col gap-10" data-controller="profile">
+      <nav class="flex justify-between bg-[#F7F7FC] rounded-lg p-2">
         <button class="py-2 px-3 rounded-lg text-gray-500" data-profile-target="navBtn" data-action="profile#handleProfileNav">Overview</button>
         <button class="py-2 px-3 rounded-lg text-gray-500" data-profile-target="navBtn" data-action="profile#handleProfileNav">Groups</button>
         <button class="py-2 px-3 rounded-lg text-gray-500" data-profile-target="navBtn" data-action="profile#handleProfileNav">Projects</button>
         <button class="py-2 px-3 rounded-lg text-gray-500" data-profile-target="navBtn" data-action="profile#handleProfileNav">Tasks</button>
       </nav>
-    </div>
-    <section class="rounded-2xl bg-white p-5">
-      <%= render '/partials/users/overview' %>
+      <div class="rounded-2xl bg-white p-5">
+        <%= render '/partials/users/overview' %>
+        <%= render '/partials/users/groups' %>
+        <%= render '/partials/users/projects' %>
+        <%= render '/partials/users/tasks' %>
+      </div>
     </section>
   </aside>
   <aside class="flex-1">
