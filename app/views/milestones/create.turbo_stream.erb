@@ -1,6 +1,6 @@
-<% if @project.id %>
+<% if @milestone.id %>
   <%= turbo_stream.replace "milestone_container", partial: 'partials/projects/milestone_list', locals: { project: @project, milestone: @milestone } %>
   <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Milestone created!", errors: nil } %>
 <% else %>
-  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @project.errors.full_messages } %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @milestone.errors.full_messages } %>
 <% end %>

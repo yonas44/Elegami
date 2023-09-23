@@ -2,11 +2,11 @@
   <!-- Modal Content -->
   <div class="bg-white rounded-lg shadow-lg p-4 w-full relative z-20 max-w-md">
     <h2 class="text-lg font-semibold text-black mb-4">Let's add members to the team!</h2>
-    <%= form_for(member, url: project_users_path(project_id: project.id), data: { action: "turbo:submit-end->project#memberModalToggle", project_target: "form" }) do |f| %>
+    <%= form_for(member, url: project_users_path(project_id: project_id), data: { action: "turbo:submit-end->project#memberModalToggle", project_target: "form" }) do |f| %>
       <div class="field my-5">
-        <% if users.count > 0 %>
+        <% if non_members.count > 0 %>
           <ul class="">
-            <% users.each do |user| %>
+            <% non_members.each do |user| %>
               <li class="flex items-center space-x-2">
                 <%= check_box_tag 'user_ids[]', user.id, false %>
                 <%= label_tag "user_ids_#{user.id}" do %>
@@ -26,7 +26,7 @@
         <% end %>
       </div>
       <div class="actions flex gap-3 items-center">
-        <%= f.submit "Add", class: "bg-green-500 text-white px-3 py-1 rounded-md" if users.count > 0 %>
+        <%= f.submit "Add", class: "bg-green-500 text-white px-3 py-1 rounded-md" if non_members.count > 0 %>
         <button data-action="project#memberModalToggle" type="button">Cancel</button>
       </div>
     <% end %>
