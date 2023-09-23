@@ -18,7 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_132258) do
     t.bigint "project_id", null: false
     t.string "title"
     t.string "status", default: "Not-started"
-    t.date "due_date"
+    t.datetime "start_date"
+    t.datetime "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_milestones_on_project_id"
@@ -39,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_132258) do
     t.text "description"
     t.boolean "completed", default: false
     t.boolean "public", default: false
-    t.date "start_date"
-    t.date "due_date"
+    t.datetime "start_date"
+    t.datetime "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_132258) do
     t.string "description", null: false
     t.string "priority", default: "Low"
     t.bigint "milestone_id", null: false
+    t.datetime "completed_at"
     t.string "status", default: "Unassigned"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

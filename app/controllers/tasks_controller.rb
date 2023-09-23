@@ -37,6 +37,10 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(task_params)
+    if task_params[:status] == 'Completed'
+      @task.update(completed_at: Time.now)
+    end
+    
     @milestone = Milestone.includes(:tasks, :project).find(@task.milestone_id)
     @new_task = Task.new
     @all_tasks = filtered_tasks(@milestone)
@@ -64,7 +68,7 @@ class TasksController < ApplicationController
       else
         @task.update(status: 'Unassigned')
       end
-    end
+    end  
     
     respond_to do |format|
       if @task.errors.empty? && @task.status != 'Completed'
@@ -78,7 +82,9 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    @incomplete_tasks = Task.where(milestone_id: @task.milestone_id).where.not(status: 'Completed')
+    all_tasks = Task.where(milestone_id: @task.milestone_id)
+    @completed_tasks = all_tasks.select { |task| task.status == 'Completed'}
+    @incomplete_tasks = all_tasks - @completed_tasks
     
     respond_to do |format|
       format.turbo_stream

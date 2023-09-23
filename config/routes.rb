@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   registrations: 'users/registrations', # Customize the registration controller
   # Add other controllers here as needed
 }
-  resources :projects do
-    resources :tasks
-  end
+  resources :projects 
+  resources :project_users 
+  resources :milestones
+  resources :tasks
 
   root 'projects#index'
   
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
     get "users/sign_in", to: "devise/sessions#new"
     get 'users/sign_out', to: 'devise/sessions#destroy'
   end
+  
+  resources :users, only: [:show]
 end

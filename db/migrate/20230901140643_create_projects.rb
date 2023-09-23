@@ -5,8 +5,8 @@ class CreateProjects < ActiveRecord::Migration[7.0]
       t.text :description
       t.boolean :completed, default: false
       t.boolean :public, default: false
-      t.date :start_date
-      t.date :due_date
+      t.datetime :start_date
+      t.datetime :due_date
 
       t.timestamps
     end
