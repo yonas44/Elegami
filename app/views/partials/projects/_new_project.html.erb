@@ -1,0 +1,31 @@
+<div class="bg-white p-5 m-auto text-black rounded-br-3xl">
+  <h3 class="text-xl font-semibold mb-4">Let's create new project!</h3>
+  <%= form_for(@project, url: projects_path, data: { action: "turbo:submit-end->project#reset", project_target: "form" }) do |f| %>
+    <div class="flex justify-between items-center gap-5 my-5">
+      <div>
+        <%= f.text_field :title, autofocus: true, autocomplete: "title", class: "border-none shadow-inner", placeholder: 'Title here..' %>
+      </div>
+      <div class="">
+        <label class="text-gray-500">Type</label>
+        <%= f.select :public, [["Public", true], ["Private", false]], {}, { class: "text-green-500 italic text-md border-none bg-transparent px-2 w-max pr-10", autofocus: true } %>
+      </div>
+    </div>
+    <div class="field my-5">
+      <%= f.text_area :description, autofocus: true, autocomplete: "description", class: "border-none shadow-inner w-full p-3", placeholder: 'Description here..' %>
+    </div>
+    <div class="flex gap-5">
+      <div class="w-1/2 flex flex-col mb-4">
+        <label class="text-gray-500">Start Date</label>
+        <%= f.date_field :start_date, class: "border-none bg-transparent", autofocus: true %>
+      </div>
+      <div class="w-1/2 flex flex-col mb-4">
+        <label class="text-gray-500">Due Date</label>
+        <%= f.date_field :due_date, class: "border-none bg-transparent", autofocus: true %>
+      </div>
+    </div>
+    <div class="mt-10 flex gap-3 items-center">
+      <%= f.submit "Create", class: "bg-green-500 text-white px-3 py-1 rounded-md" %>
+      <button data-action="project#toggleOff" type="button">Cancel</button>
+    </div>
+  <% end %>
+</div>

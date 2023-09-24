@@ -1,0 +1,7 @@
+<% if @user_ids %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { errors: nil, success: "Request sent!" } %>
+  <%= turbo_stream.replace "project_member_pics_container", partial: 'partials/projects/project_member_pics', locals: { project_users: @project_users } %>
+  <%= turbo_stream.replace "project_members_container", partial: 'partials/projects/project_members_list', locals: { members: @project_users } %>
+<% else %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { errors: ["No user invited"], success: nil } %>
+<% end %>

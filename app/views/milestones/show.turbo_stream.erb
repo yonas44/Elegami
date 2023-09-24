@@ -1,0 +1,5 @@
+<% if @milestone.nil? %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @milestone.errors.full_messages } %>
+<% else %>
+  <%= turbo_stream.replace "milestone_detail_wrapper", partial: 'partials/projects/milestone_detail', locals: { project: @milestone.project, milestone: @milestone } %>
+<% end %>

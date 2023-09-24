@@ -1,0 +1,12 @@
+<section class="flex-1 w-full overflow-auto" id="milestone_detail_wrapper">
+  <nav class="flex">
+    <ul class="w-full flex justify-around items-center border-b border-gray-200 rounded-tr-md rounded-tl-md">
+      <li class="flex-1 text-center min-w-max p-4 border-b border-gray-500 font-semibold cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="progress">Progress</li>
+      <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="tasks">Tasks</li>
+      <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="completed">Completed</li>
+      <ul>
+      </nav>
+      <%= render 'partials/projects/milestone_progress', milestone: %>
+      <%= render 'partials/projects/tasks_list', milestone: milestone, new_task: new_task, incomplete_tasks: incomplete_tasks, members: project_users %>
+      <%= render 'partials/projects/milestone_completed_tasks', tasks: completed_tasks %>
+    </section>

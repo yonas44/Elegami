@@ -1,0 +1,20 @@
+<div class="flex w-full h-screen bg-white text-black">
+  <div class="flex-1 bg-gray-500"></div>
+  <div class="mx-auto flex flex-col gap-4 justify-center w-full md:w-2/5 px-10">
+    <section class="my-auto">
+      <h2 class="text-4xl font-semibold my-2">Forgot your password?</h2>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="field my-5">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border-none shadow-inner", placeholder: 'Email here..', required: true %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Send me reset password instructions", class: "bg-gradient-to-r from-[#8075F7] to-[#5CA7FC] w-full py-3 mt-10 rounded-md text-white" %>
+        </div>
+      <% end %>
+    </section>
+    <div class="mb-5 flex items-center gap-2">
+      <span>CLick here to</span><%= link_to 'Login', user_session_path, method: :get, class: "text-blue-500" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<% if members.count > 0 %>
+  <ul class="flex flex-col max-h-[325px] w-full overflow-auto">
+    <% members.each_with_index do |member, index| %>
+      <%= render 'partials/projects/single_member', member: member, index: index %>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="italic text-gray-500 text-center text-sm w-full">This project has no members at the moment
+    <p>
+    <% end %>
+  </div>

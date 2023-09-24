@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' %>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.1/dist/Chart.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   </head>
-
-  <body>
-    <%= yield %>
+  <body class="font-custom">
+    <div class="relative z-30" id="flash_container">
+      <% if flash.now[:notice] || flash.now[:errors] %>
+        <%= render 'partials/shared/flash', success: flash.now[:notice] || nil, errors: flash.now[:errors] || nil %>
+      <% end %>
+    </div>
+    <% if user_signed_in? %>
+      <%= render "layouts/header" %>
+    <% end %>
+    <main class="min-h-screen w-screen bg-[#21253F] text-white ">
+      <%= yield %>
+    </main>
   </body>
 </html>

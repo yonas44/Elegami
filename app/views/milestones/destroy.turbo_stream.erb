@@ -1,0 +1,6 @@
+<% if @milestone.errors.any? %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @milestone.errors.full_messages } %>
+<% else %>
+  <%= turbo_stream.replace "milestone_container", partial: 'partials/projects/milestone_list', locals: { project: @project, milestone: @milestone } %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Milestone removed!", errors: nil } %>
+<% end %>

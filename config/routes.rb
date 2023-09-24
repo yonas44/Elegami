@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
-  # get 'tasks/index'
-  # get 'tasks/create'
-  # get 'tasks/update'
-  # get 'tasks/destroy'
-  devise_for :users
-  resources :tasks
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  root "tasks#index"
+  devise_for :users, controllers: {
+  sessions: 'users/sessions', # Customize the session controller
+  registrations: 'users/registrations', # Customize the registration controller
+  # Add other controllers here as needed
+}
+  resources :projects 
+  resources :project_users 
+  resources :milestones
+  resources :tasks
+
+  root 'projects#index'
+  
+  devise_scope :user do
+    get "users/sign_in", to: "devise/sessions#new"
+    get 'users/sign_out', to: 'devise/sessions#destroy'
+  end
+  
+  resources :users, only: [:show]
 end

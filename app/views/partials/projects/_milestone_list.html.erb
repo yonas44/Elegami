@@ -1,0 +1,14 @@
+<div id="milestone_container" class="bg-gray-100 flex">
+  <turbo-frame id="<%= milestone.id %>">
+    <% if project.milestones.count > 0 %>
+      <ul class="h-[400px] overflow-auto py-5 rounded-md min-w-max">
+        <% project.milestones.each do |milestone| %>
+          <%= render 'partials/projects/single_milestone', project: project, milestone: milestone %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="italic text-gray-500 text-sm">There are no milestone created for this project
+        <p>
+        <% end %>
+      </turbo-frame>
+    </div>

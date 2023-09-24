@@ -1,0 +1,38 @@
+<div class="hidden flex-col gap-3" data-project-target="projectWindow" data-name="milestones">
+  <div class="flex justify-between">
+    <button class="flex items-center gap-2 bg-sky-500 text-white rounded-lg py-2 px-3 w-fit ml-auto" data-action="project#milestoneModalToggle">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      <span>Create Milestone</span>
+    </button>
+    <%= render 'partials/projects/new_milestone_modal', project: project, new_milestone: new_milestone %>
+  </div>
+  <div class="flex-1 flex gap-5 justify-center">
+    <div id="milestone_container" class="bg-gray-100 flex">
+      <% if project.milestones.count > 0 %>
+        <ul class="h-[400px] overflow-auto py-5 rounded-md min-w-max">
+          <% project.milestones.each_with_index do |milestone, index| %>
+            <%= render 'partials/projects/single_milestone', project: project, milestone: milestone %>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="italic text-gray-500 text-sm text-center">There are no milestone created for this project
+          <p>
+          <% end %>
+        </div>
+        <section id="milestone_detail_wrapper" class="flex-1">
+          <% if project.milestones.count > 0 %>
+            <nav class="flex">
+              <ul class="w-full flex justify-around items-center border-b border-gray-200 rounded-tr-md rounded-tl-md">
+                <li class="flex-1 text-center min-w-max p-4 border-b border-gray-500 font-semibold cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="progress">Progress</li>
+                <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="tasks">Tasks</li>
+                <li class="flex-1 text-center min-w-max p-4 cursor-pointer" data-project-target="milestoneTab" data-action="click->project#handleMilestoneTabSwitch" data-id="completed">Completed</li>
+                <ul>
+                </nav>
+                <p class="italic text-gray-500 text-sm text-center w-full mt-10">Select a milestone to preview</p>
+              <% end %>
+            </section>
+          </div>
+        </div>
+      </div>
