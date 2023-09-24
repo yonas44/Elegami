@@ -1,18 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="navigation"
 export default class extends Controller {
-  static targets = ["navOptions", "menuOpen"];
+  static targets = ["navOptions", "menuOpen", "menuClose"];
 
-  show() {
+  toggle() {
     this.menuOpenTarget.classList.toggle("hidden");
-    this.navOptionsTarget.classList.remove("-translate-x-full");
-    this.navOptionsTarget.classList.add("translate-x-0");
-  }
-
-  hide() {
-    this.menuOpenTarget.classList.toggle("hidden");
-    this.navOptionsTarget.classList.add("-translate-x-full");
-    this.navOptionsTarget.classList.remove("translate-x-0");
+    this.menuCloseTarget.classList.toggle("hidden");
+    this.navOptionsTarget.classList.toggle("hidden");
+    this.navOptionsTarget.classList.toggle("flex");
+    this.navOptionsTarget.classList.toggle("scale-90");
+    this.navOptionsTarget.classList.toggle("opacity-0");
+    this.navOptionsTarget.classList.toggle("invisible");
   }
 }
