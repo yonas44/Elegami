@@ -9,7 +9,7 @@
       </svg>
     </button>
   </button>
-  <ul class="absolute md:static z-10 bg-gray-700 top-full hidden md:flex flex-col md:bg-transparent p-3 shadow-md md:flex-row gap-3 md:gap-10 text-gray-400 duration-150 opacity-0 scale-90 invisible md:opacity-100 md:scale-100 md:visible" data-navigation-target="navOptions">
+  <ul class="absolute md:static z-10 bg-gray-700 top-full hidden md:flex flex-col md:bg-transparent p-3 md:flex-row gap-3 md:gap-10 text-gray-400 duration-150 opacity-0 scale-90 invisible md:opacity-100 md:scale-100 md:visible" data-navigation-target="navOptions">
     <li>
       <button class="flex flex-col items-center gap-2 hover:text-white <%= request.path == '/' && 'text-white' %>">
         <%= link_to root_path, method: :get do %>
@@ -49,7 +49,7 @@
   </ul>
   <div class="flex gap-2 items-center cursor-pointer relative" data-controller="header" data-action="click->header#toggle">
     <div class="flex w-12 h-12 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
-      <img src="https://avatars.githubusercontent.com/u/72081991?v=4" alt="profile_pic" class="object-cover absolute" />
+      <%= image_tag(current_user.image_as_thumbnail, class: "absolute object-cover") if current_user.image.attached? %>
       <span class="text-black m-auto text-lg font-semibold"><%= current_user.full_name[0] %></span>
     </div>
     <button type='button' data-header-target="dropDown">

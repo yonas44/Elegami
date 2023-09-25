@@ -1,10 +1,16 @@
 <turbo-frame id="user<%= @user.id %>" class="flex justify-between">
+  <div class="absolute bottom-3/4 left-5 h-1/2 aspect-1 overflow-hidden border-5 border-white rounded-full flex bg-gray-300">
+    <div class="flex w-full h-full rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
+      <%= image_tag(@user.image_as_thumbnail, class: "absolute object-cover") if @user.image.attached? %>
+      <span class="text-black m-auto text-3xl font-semibold"><%= @user.full_name[0] %></span>
+    </div>
+  </div>
   <div class="flex flex-col mt-4">
     <h2 class="text-3xl font-semibold"><%= @user.full_name %></h2>
     <p class="text-gray-500"><%= @user.profession || '-' %></p>
     <p class="font-semibold text-xs p-2 rounded-lg w-fit bg-[#F7F7FA]">Addis Ababa, Ethiopia</p>
   </div>
-  <%= button_to edit_user_path(current_user), method: :get do %>
+  <%= button_to edit_user_path(@user), method: :get do %>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
     </svg>
