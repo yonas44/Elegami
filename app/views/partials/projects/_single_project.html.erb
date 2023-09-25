@@ -8,7 +8,7 @@
         </svg>
       <% end %>
     </section>
-    <p class="text-gray-500"><%= project.description %></p>
+    <p class="text-gray-500"><%= project.description.truncate(80, omission: '...') %></p>
     <section class="flex justify-between">
       <span>Last Updated on July 29</span>
     </section>

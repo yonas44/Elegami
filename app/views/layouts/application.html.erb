@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   </head>
-  <body class="font-custom bg-[#21253F] text-white">
+  <body class="font-custom min-h-screen flex flex-col bg-[#21253F] text-white">
     <div class="relative z-30" id="flash_container">
       <% if flash.now[:notice] || flash.now[:errors] %>
         <%= render 'partials/shared/flash', success: flash.now[:notice] || nil, errors: flash.now[:errors] || nil %>
@@ -23,7 +23,7 @@
     <% if user_signed_in? %>
       <%= render "layouts/header" %>
     <% end %>
-    <main class="min-h-screen w-screen">
+    <main class="flex-1 w-full flex flex-col">
       <%= yield %>
     </main>
   </body>

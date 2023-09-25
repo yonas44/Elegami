@@ -24,10 +24,10 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find(params[:id])
+    @user = User.includes(project_users: [:project]).find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:profession, :full_name, :bio, :image)
+    params.require(:user).permit(:profession, :full_name, :bio, :image, :cover)
   end
 end
