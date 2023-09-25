@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_132258) do
   create_table "milestones", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "title"
-    t.string "status", default: "Not-started"
+    t.string "status", default: "Not_started"
     t.datetime "start_date"
     t.datetime "due_date"
     t.datetime "created_at", null: false
@@ -70,6 +70,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_132258) do
     t.string "full_name", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "profession"
+    t.text "bio"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
