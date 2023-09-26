@@ -1,0 +1,10 @@
+<div class="grid grid-cols-4 items-center hover:bg-gray-200 px-2 py-1" data-project-target="filterable" data-key="<%= project.title %>">
+  <%= link_to project_path(project), class: 'col-span-2' do %>
+    <h3 class="text-xl font-semibold"><%= project.title %></h3>
+    <span class="text-sm text-gray-500">
+      <%= project.description.truncate(50, omission: '...') %>
+    </span>
+  <% end %>
+  <div class="italic text-gray-500 col-span-1"><%= project.public ? 'Public' : 'Private' %></div>
+  <div class="text-blue-500 col-span-1"><%= project.completion_percentage %>% <span class="text-xs italic text-gray-500">completed</span></div>
+</div>

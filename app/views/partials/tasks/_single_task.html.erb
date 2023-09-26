@@ -26,8 +26,8 @@
     <div class="p-3 col-span-2">
       <div class="relative">
         <% if task.task_users.count > 0 %>
-          <% task.task_users.each_with_index do |user, index| %>
-            <img src="https://avatars.githubusercontent.com/u/72081991?v=4" alt="profile_pic" class="w-7 h-7 border-1 border-white rounded-full absolute left-0 top-0 ml-<%= index * 5 %>" />
+          <% task.task_users.each_with_index do |task_user, index| %>
+            <%= image_tag(task_user.user.image_as_thumbnail, class: "w-7 h-7 border-1 border-white object-cover rounded-full absolute left-0 top-0 ml-#{index * 5}") %>
           <% end %>
         <% else %>
           -

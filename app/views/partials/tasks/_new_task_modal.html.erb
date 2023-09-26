@@ -21,7 +21,7 @@
               <%= check_box_tag 'user_ids[]', member.user.id, false %>
               <%= label_tag "user_ids_#{member.user.id}" do %>
                 <div class="px-6 py-2 text-left text-xs col-span-4 font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
-                  <img src="https://avatars.githubusercontent.com/u/72081991?v=4" alt="profile_pic" class="w-16 h-16 rounded-full" />
+                  <%= image_tag(member.user.image_as_thumbnail, class: "w-16 h-16 rounded-full") %>
                   <div class="flex flex-col justify-center">
                     <p class="font-semibold text-md"><%= member.user.full_name %></p>
                     <p class=""><%= member.user.email %></p>

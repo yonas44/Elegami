@@ -1,11 +1,17 @@
-<div class="flex-col gap-2 hidden" data-profile-target="detail" data-group="projects">
-  <h3 class="my-3 font-semibold text-lg">Projects</h3>
-  <p>
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur amet ullam
-    praesentium asperiores cum molestias, itaque saepe reiciendis quidem
-    <br />
-    perspiciatis facilis, quibusdam qui dolorem fuga dolore odit officia nostrum
-    aliquam nisi, tenetur temporibus. Voluptatibus quo fugiat dolore accusantium,
-    officiis aut!
-  </p>
+<div class="flex-col gap-2 hidden flex-1" data-profile-target="detail" data-group="projects" data-controller="project">
+  <label for="search" class="relative my-5 px-1 w-full max-w-md">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 absolute inset-0 my-auto left-3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+    </svg>
+    <input type="text" id="search" class="rounded-2xl shadow-md text-black p-3 pl-14 w-full border-none" data-action="input->project#handleSearch" placeholder="Search text or project..." />
+  </label>
+  <% if project_users.count> 0 %>
+    <ul class="flex flex-col gap-3 overflow-auto" id="projects_list">
+      <% project_users.each do |project_user| %>
+        <%= render 'partials/users/single_project', project: project_user.project %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="m-5">There are no projects to display</div>
+  <% end %>
 </div>

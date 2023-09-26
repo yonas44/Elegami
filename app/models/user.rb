@@ -8,5 +8,11 @@ class User < ApplicationRecord
   has_many :project_users, dependent: :destroy
   has_many :task_users, dependent: :destroy
 
+  has_one_attached :image
+
   validates :full_name, presence: true
+
+  def image_as_thumbnail
+    image.variant(resize_to_limit: [300, 300]).processed
+  end
 end

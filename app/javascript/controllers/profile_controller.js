@@ -7,33 +7,42 @@ export default class extends Controller {
   initialize() {
     this.selectedButton = this.navBtnTargets[0];
     this.selectedDetailPage = this.detailTargets[0];
-    this.selectedDetailPage.classList.remove("hidden");
+
+    this.detailTargets.forEach((item, index) => {
+      item.classList.add("hidden");
+      item.classList.remove("flex");
+
+      this.navBtnTargets[index].classList.remove("bg-gray-300");
+    });
+
+    this.selectedButton.classList.add("bg-gray-300");
     this.selectedDetailPage.classList.add("flex");
-    this.selectedButton.classList.add("active");
+    this.selectedDetailPage.classList.remove("hidden");
   }
 
   // Handle the click event on the buttons
   handleProfileNav(event) {
     const clickedButton = event.currentTarget;
 
-    if (this.selectedButton) {
-      this.selectedButton.classList.remove("active");
-      this.selectedDetailPage.classList.remove("active");
+    if (
+      clickedButton.textContent.toLowerCase() !==
+      this.selectedButton.textContent.toLowerCase()
+    ) {
+      this.selectedButton.classList.remove("bg-gray-300");
+      this.selectedDetailPage.classList.add("hidden");
+
+      this.selectedButton = clickedButton;
+      this.selectedButton.classList.add("bg-gray-300");
     }
 
-    clickedButton.classList.add("active");
     this.detailTargets.forEach((item) => {
       if (
         item.dataset.group === event.currentTarget.textContent.toLowerCase()
       ) {
         item.classList.remove("hidden");
-        item.classList.add("flex");
       } else {
         item.classList.add("hidden");
-        item.classList.remove("flex");
       }
     });
-
-    this.selectedButton = clickedButton;
   }
 }
