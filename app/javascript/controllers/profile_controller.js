@@ -7,9 +7,17 @@ export default class extends Controller {
   initialize() {
     this.selectedButton = this.navBtnTargets[0];
     this.selectedDetailPage = this.detailTargets[0];
-    this.selectedDetailPage.classList.remove("hidden");
-    this.selectedDetailPage.classList.add("flex");
+
+    this.detailTargets.forEach((item, index) => {
+      item.classList.add("hidden");
+      item.classList.remove("flex");
+
+      this.navBtnTargets[index].classList.remove("bg-gray-300");
+    });
+
     this.selectedButton.classList.add("bg-gray-300");
+    this.selectedDetailPage.classList.add("flex");
+    this.selectedDetailPage.classList.remove("hidden");
   }
 
   // Handle the click event on the buttons
