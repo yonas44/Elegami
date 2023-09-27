@@ -4,12 +4,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |_exception|
     respond_to do |format|
-      format.html { 
-        flash[:errors]= ["You are unauthorized!"] 
+      format.html do
+        flash[:errors] = ['You are unauthorized!']
         redirect_back fallback_location: projects_path
-      }
+      end
       format.turbo_stream do
-        render turbo_stream: turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: ["You are unauthorized!"]})
+        render turbo_stream: turbo_stream.append(
+          'flash_container', partial: 'partials/shared/flash',
+                             locals: { success: nil, errors: ['You are unauthorized!'] }
+        )
       end
     end
   end
