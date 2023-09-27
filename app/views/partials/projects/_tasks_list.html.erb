@@ -1,10 +1,12 @@
 <div class="my-5 hidden w-full overflow-auto flex-col" data-project-target="milestoneWindow" data-name="tasks">
-  <button class="flex items-center gap-2 bg-green-500 text-white rounded-lg py-2 px-3 w-fit ml-auto mb-3" data-action="project#taskModalToggle">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-    </svg>
-    <span>Add Task</span>
-  </button>
+  <% if can? :create, new_task %>
+    <button class="flex items-center gap-2 bg-green-500 text-white rounded-lg py-2 px-3 w-fit ml-auto mb-3" data-action="project#taskModalToggle">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      <span>Add Task</span>
+    </button>
+  <% end %>
   <div id="tasks_container">
     <% if incomplete_tasks.count > 0 %>
       <%= render 'partials/tasks/tasks_table', tasks: incomplete_tasks, project_id: milestone.project.id %>

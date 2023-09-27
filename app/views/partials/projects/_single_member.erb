@@ -1,7 +1,10 @@
 <li class="grid grid-cols-12 group text-sm text-gray-900" id="project_user<%= member.id %>">
   <div class="px-6 py-3 text-left text-xs col-span-1 flex items-center"><%= index + 1 %>.</div>
   <div class="px-6 py-3 text-left text-xs col-span-4 font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
-    <%= image_tag(member.user.image_as_thumbnail, class: "w-16 h-16 rounded-full") if member.user.image.attached? %>
+    <div class="flex w-16 h-16 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
+      <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover") if member.user.image.attached? %>
+      <span class="text-black m-auto text-lg font-semibold"><%= member.user.full_name[0] %></span>
+    </div>
     <div class="flex flex-col justify-center">
       <p class="font-semibold text-md"><%= member.user.full_name %></p>
       <p class=""><%= member.user.email %></p>
@@ -13,7 +16,7 @@
   <div class="px-6 py-3 text-left text-xs col-span-3 font-medium text-gray-500 tracking-wider whitespace-nowrap flex items-center">
     <%= 'Web-developer' || '-' %> <!-- Adjust to display the member's profession -->
   </div>
-  <% if current_user.id != member.user.id %>
+  <% if can?(:destroy, member) && member.user_id != current_user.id %>
     <div class="px-6 py-3 text-left text-xs col-span-2 flex items-center" data-controller="confirmation" data-id="<%= member.id %>"> <!-- Adjust the class as needed -->
       <button type="button" data-action="confirmation#toggle">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" class="w-6 h-6">

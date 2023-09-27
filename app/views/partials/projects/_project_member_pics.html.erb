@@ -1,5 +1,15 @@
-<div class="flex mt-1 justify-center" id="project_member_pics_container">
-  <% project_users.each do |member| %>
-    <%= image_tag(member.user.image_as_thumbnail, class: "object-cover w-10 h-10 rounded-full") %>
+<div class="flex mt-1 justify-center items-center gap-2" id="project_member_pics_container">
+  <div class="flex items-center">
+    <% project_users.each_with_index do |member, index| %>
+      <% if index < 3 %>
+        <div class="flex w-10 h-10 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
+          <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover") if member.user.image.attached? %>
+          <span class="text-black m-auto text-lg font-semibold"><%= member.user.full_name[0] %></span>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <% if project_users.count > 3 %>
+    <span>+<%= project_users.count - 3 %></span>
   <% end %>
 </div>

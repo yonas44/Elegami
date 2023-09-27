@@ -3,6 +3,7 @@
   <div class="bg-white rounded-lg shadow-lg p-4 w-full relative z-20 max-w-md">
     <h2 class="text-lg font-semibold text-black mb-4">Let's add a milestone!</h2>
     <%= form_for(new_milestone, url: milestones_path(project_id: project.id), data: { action: "turbo:submit-end->project#milestoneModalToggle", project_target: "form" }) do |f| %>
+      <%= f.hidden_field :project_id, value: project.id %>
       <div class="field my-5">
         <%= f.text_field :title, autofocus: true, class: "border-none shadow-inner", placeholder: 'Title here..' %>
       </div>

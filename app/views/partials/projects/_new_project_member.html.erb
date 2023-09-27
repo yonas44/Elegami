@@ -2,7 +2,8 @@
   <!-- Modal Content -->
   <div class="bg-white rounded-lg shadow-lg p-4 w-full relative z-20 max-w-md">
     <h2 class="text-lg font-semibold text-black mb-4">Let's add members to the team!</h2>
-    <%= form_for(member, url: project_users_path(project_id: project_id), data: { action: "turbo:submit-end->project#memberModalToggle", project_target: "form" }) do |f| %>
+    <%= form_for(member, url: project_users_path, data: { action: "turbo:submit-end->project#memberModalToggle", project_target: "form" }) do |f| %>
+      <%= f.hidden_field :project_id, value: project_id %>
       <div class="field my-5">
         <% if non_members.count > 0 %>
           <ul class="">
@@ -11,7 +12,10 @@
                 <%= check_box_tag 'user_ids[]', user.id, false %>
                 <%= label_tag "user_ids_#{user.id}" do %>
                   <div class="px-6 py-2 text-left text-xs col-span-4 font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
-                    <%= image_tag(user.image_as_thumbnail, class: "object-cover w-16 h-16 rounded-full") if user.image.attached? %>
+                    <div class="flex w-16 h-16 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
+                      <%= image_tag(user.image_as_thumbnail, class: "object-cover absolute") if user.image.attached? %>
+                      <span class="text-black m-auto text-lg font-semibold"><%= user.full_name[0] %></span>
+                    </div>
                     <div class="flex flex-col justify-center">
                       <p class="font-semibold text-md"><%= user.full_name %></p>
                       <p class=""><%= user.email %></p>
