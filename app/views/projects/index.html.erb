@@ -37,9 +37,9 @@
     </div>
     <% if @projects.count> 0 %>
       <ul class="my-5 overflow-auto flex flex-wrap gap-10" id="projects_list">
-        <% @projects.each do |project| %>
-          <li data-project-target="filterable" data-key="<%= project.title %>">
-            <%= render 'partials/projects/single_project', project: project %>
+        <% @projects.each do |project_user| %>
+          <li data-project-target="filterable" data-key="<%= project_user.project.title %>">
+            <%= render 'partials/projects/single_project', project: project_user.project %>
           </li>
         <% end %>
       </ul>

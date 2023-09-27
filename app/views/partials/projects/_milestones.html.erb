@@ -1,13 +1,15 @@
-<div class="hidden flex-col gap-3" data-project-target="projectWindow" data-name="milestones">
-  <div class="flex justify-between">
-    <button class="flex items-center gap-2 bg-sky-500 text-white rounded-lg py-2 px-3 w-fit ml-auto" data-action="project#milestoneModalToggle">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-      </svg>
-      <span>Create Milestone</span>
-    </button>
-    <%= render 'partials/projects/new_milestone_modal', project: project, new_milestone: new_milestone %>
-  </div>
+<div class="hidden flex-col gap-5" data-project-target="projectWindow" data-name="milestones">
+  <% if can? :create, new_milestone %>
+    <div class="flex justify-between">
+      <button class="flex items-center gap-2 bg-sky-500 text-white rounded-lg py-2 px-3 w-fit ml-auto" data-action="project#milestoneModalToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        <span>Create Milestone</span>
+      </button>
+      <%= render 'partials/projects/new_milestone_modal', project: project, new_milestone: new_milestone %>
+    </div>
+  <% end %>
   <div class="flex-1 flex gap-5 justify-center">
     <div id="milestone_container" class="bg-gray-100 flex">
       <% if project.milestones.count > 0 %>
