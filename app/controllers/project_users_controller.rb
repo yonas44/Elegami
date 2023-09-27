@@ -1,13 +1,11 @@
 class ProjectUsersController < ApplicationController
+  load_and_authorize_resource
+
   def create
     @user_ids = params[:user_ids]
-    project_id = params[:project_id]
+    ProjectUser.create!(@user_ids.map { |id| project_user_params.merge(user_id: id.to_i) })
 
-    @user_ids&.each do |id|
-      ProjectUser.create(project_id:, user_id: id.to_i)
-    end
-
-    @project_users = ProjectUser.where(project_id: params[:project_id])
+    @project_users = ProjectUser.where(project_id: project_user_params[:project_id])
 
     respond_to(&:turbo_stream)
   end
@@ -17,5 +15,11 @@ class ProjectUsersController < ApplicationController
     @project_users = ProjectUser.where(project_id: @project_user.project_id)
 
     respond_to(&:turbo_stream)
+  end
+
+  private
+
+  def project_user_params
+    params.require(:project_user).permit(:project_id)
   end
 end

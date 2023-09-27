@@ -1,4 +1,6 @@
 class MilestonesController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @milestones = Project.includes(:milestones).find(params[:project_id])
   end
@@ -9,7 +11,7 @@ class MilestonesController < ApplicationController
 
   def show
     @milestone = Milestone.includes(:tasks, :project).find(params[:id])
-    @new_task = Task.new
+    @new_task = Task.new(milestone: @milestone)
     @task_user = TaskUser.new
     project_users = ProjectUser.includes(:user).where(project_id: @milestone.project_id)
     all_tasks = filtered_tasks(@milestone)
@@ -59,7 +61,7 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.require(:milestone).permit(:title, :start_date, :due_date, :status)
+    params.require(:milestone).permit(:title, :project_id, :start_date, :due_date, :status)
   end
 
   def filtered_tasks(milestone)

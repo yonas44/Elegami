@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @tasks = Task.all
   end
@@ -15,7 +17,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params.merge(milestone_id: params[:milestone_id]))
+    @task = Task.new(task_params)
 
     if @task.save
       ActiveRecord::Base.transaction do
@@ -27,7 +29,7 @@ class TasksController < ApplicationController
       @task.update(status: 'In_progress') if params[:user_ids]
 
       @incomplete_tasks = Task.includes(task_users: [:user])
-        .where(milestone_id: params[:milestone_id])
+        .where(milestone_id: @task.milestone_id)
         .where.not(status: 'Completed')
     end
 
@@ -39,7 +41,7 @@ class TasksController < ApplicationController
     @task.update(task_params)
 
     @milestone = Milestone.includes(:tasks, :project).find(@task.milestone_id)
-    @new_task = Task.new
+    @new_task = Task.new(milestone: @milestone)
     @all_tasks = filtered_tasks(@milestone)
     @project_users = ProjectUser.includes(:user).where(project_id: @milestone.project_id)
 
@@ -67,8 +69,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    request_params = params.require(:task).permit(:description, :priority, :status)
-    request_params[:completed_at] = Time.now if params[:status] == 'Completed'
+    request_params = params.require(:task).permit(:description, :milestone_id, :priority, :status)
+    request_params[:completed_at] = Time.now if params[:task][:status] == 'Completed'
 
     request_params
   end

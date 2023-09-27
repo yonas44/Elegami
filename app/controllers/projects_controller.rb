@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :select_project, except: %i[index create]
+  load_and_authorize_resource
 
   def index
     @user = current_user
-    @projects = Project.all
+    @projects = current_user.project_users
     @project = Project.new
   end
 
@@ -13,10 +14,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.includes(project_users: [:user], milestones: []).find(params[:id])
-    @project_admin = @project.project_users.find_by(role: 'admin').user
-    @new_milestone = Milestone.new
-    @task = Task.new
-    @project_user = ProjectUser.new
+    @project_owner = @project.project_users.find_by(role: 'owner').user
+    @new_milestone = Milestone.new(project: @project)
+    @project_user = ProjectUser.new(project: @project)
 
     # Query for users not associated with the project
     @non_members = User.where.not(id: @project.project_users.pluck(:user_id))
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        current_user.project_users.create(project: @project, role: 'admin')
+        current_user.project_users.create(project: @project, role: 'owner')
         format.html { redirect_to project_path(@project), notice: 'Project successfully created.' }
       else
         format.turbo_stream
@@ -70,6 +70,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :start_date, :due_date, :priority, :public, :completed)
+    params.require(:project).permit(:title, :project_id, :description, :start_date, :due_date, :priority, :public,
+                                    :completed)
   end
 end
