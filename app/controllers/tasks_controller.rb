@@ -2,7 +2,11 @@ class TasksController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @tasks = Task.all
+    @tasks = fetch_tasks(params[:project_id])
+      
+    @project_id = params[:project_id]
+    
+    respond_to(&:turbo_stream)
   end
 
   def edit
@@ -44,6 +48,9 @@ class TasksController < ApplicationController
     @new_task = Task.new(milestone: @milestone)
     @all_tasks = filtered_tasks(@milestone)
     @project_users = ProjectUser.includes(:user).where(project_id: @milestone.project_id)
+    @tasks = fetch_tasks(@milestone.project_id)
+
+    p "dddddddddddddddddddddddddddddddddddd project_id: #{@milestone.project_id}"
 
     handle_task_users(@task) if task_params[:status] != 'Completed'
 
@@ -103,5 +110,13 @@ class TasksController < ApplicationController
     completed_tasks = milestone.tasks - incomplete_tasks
 
     { incomplete_tasks:, completed_tasks: }
+  end
+
+  def fetch_tasks(project_id)
+    Task.joins(milestone: :project)
+    .joins("LEFT JOIN task_users ON tasks.id = task_users.task_id AND task_users.user_id = #{current_user.id}")
+    .where(projects: { id: project_id })
+    .where.not(status: 'Completed')
+    .where.not(task_users: { id: nil })
   end
 end
