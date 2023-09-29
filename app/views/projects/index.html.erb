@@ -1,51 +1,20 @@
-<section class="py-20 relative md:py-36 px-10 md:p-0 md:w-5/6 mx-auto overflow-x-hidden" data-controller="project">
+<section class="py-20 relative md:py-36 md:w-5/6 mx-auto overflow-x-hidden flex-1 flex flex-col gap-16" data-controller="project">
   <div class="h-full flex flex-col justify-center box-border">
     <h1 class="text-2xl md:text-4xl"><span>Hi</span> <span class="font-bold"><%= @user&.full_name %></span></h1>
     <p class="text-sm md:text-lg text-gray-400 my-3">Welcome back to the workspace!</p>
   </div>
-  <section class="mt-16 flex flex-col ">
-    <div class="flex justify-between items-center">
-      <p class="text-xl">
-        <span class="font-semibold">Projects</span>
-        <span class="text-gray-400">(<%= @projects.count %>)</span>
-      </p>
-      <div class="px-4 py-3 w-fit rounded-3xl cursor-pointer bg-white/30 flex items-center gap-2" data-action="click->project#toggleOn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-        <span class="hidden md:block">Create Project</span>
-      </div>
-    </div>
-    <ul class="flex justify-around p-2 my-3">
-      <li><button class="border-b border-white">All</button></li>
-      <li><button class="text-gray-500">Inprogress</button></li>
-      <li><button class="text-gray-500">Completed</button></li>
-    </ul>
-    <div class="flex gap-5 items-center">
-      <label for="search" class="relative my-5 px-1 w-full max-w-md">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white absolute inset-0 my-auto left-3">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-        </svg>
-        <input type="text" id="search" class="rounded-2xl bg-[#393D53] text-white p-3 pl-14 w-full border-none" data-action="input->project#handleSearch" placeholder="Search text or project..." />
-      </label>
-      <button class="flex gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5" />
-        </svg>
-        <span class="text-lg">Filter</span>
+  <section class="flex flex-col gap-4 flex-1">
+    <div class="flex items-center">
+      <button class="text-xl px-5 py-2 border-r border-gray-500 font-semibold" data-project-target="categoryBtn" data-action="project#handleCategorySwitch" data-name="projects">
+        <span>Projects</span>
+        <span class="text-gray-400 font-thin">(<%= @projects.count %>)</span>
+      </button>
+      <button class="text-xl px-5 py-2 bg-gray-700 border-b border-gray-500 text-gray-400" data-project-target="categoryBtn" data-action="project#handleCategorySwitch" data-name="tasks">
+        <%= link_to "Tasks", project_users_path, method: :get, data: { turbo_stream: true } %>
       </button>
     </div>
-    <% if @projects.count> 0 %>
-      <ul class="my-5 overflow-auto flex flex-wrap gap-10" id="projects_list">
-        <% @projects.each do |project_user| %>
-          <li data-project-target="filterable" data-key="<%= project_user.project.title %>">
-            <%= render 'partials/projects/single_project', project: project_user.project %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <div class="m-5">There are no projects to display</div>
-    <% end %>
+    <%= render 'partials/projects/user_projects_section', projects: @projects %>
+    <%= render 'partials/projects/user_tasks_section' %>
     <div class="hidden fixed top-0 left-0 h-screen w-screen bg-black/50" data-project-target="modal">
       <%= render 'partials/projects/new_project', resource: @project %>
     </div>

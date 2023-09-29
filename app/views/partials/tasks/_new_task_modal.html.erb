@@ -5,6 +5,7 @@
     <%= form_for(new_task, url: tasks_path, data: { controller: 'checkbox-select-all', action: "turbo:submit-end->project#taskModalToggle", project_target: "form" }) do |f| %>
       <div class="field my-5">
         <%= f.hidden_field :milestone_id, value: milestone.id %>
+        <%= f.hidden_field :project_id, value: milestone.project_id %>
         <%= f.text_field :description, autofocus: true, class: "border-none shadow-inner", placeholder: 'Description here..' %>
       </div>
       <div>
