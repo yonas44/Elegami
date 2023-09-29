@@ -9,17 +9,17 @@ class ProjectUsersController < ApplicationController
 
     respond_to(&:turbo_stream)
   end
-  
+
   def update
     @project_user = ProjectUser.find(params[:id])
-    
+
     if @project_user.update(project_user_params)
       @member_is_updated = true
       @members = ProjectUser.where(project_id: @project_user.project_id)
     else
       @member_is_updated = false
     end
-    
+
     respond_to(&:turbo_stream)
   end
 

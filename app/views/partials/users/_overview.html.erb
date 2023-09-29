@@ -1,7 +1,7 @@
 <turbo-frame id="user<%= current_user.id %>-bio" class="hidden justify-between" data-profile-target="detail" data-group="overview">
   <div>
     <h3 class="my-3 font-semibold text-lg">Summary</h3>
-    <% unless current_user.bio.nil? %>
+    <% unless current_user.bio.empty? %>
       <p><%= current_user.bio %></p>
     <% else %>
       <p class="italic text-gray-500 text-sm">No bio to display.</p>
