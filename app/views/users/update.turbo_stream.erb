@@ -1,1 +1,1 @@
-<%= turbo_stream.replace('',)
+<%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @user.errors.full_messages } %>

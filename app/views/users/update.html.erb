@@ -20,8 +20,8 @@
 <turbo-frame id="user<%= @user.id %>-bio">
   <div class="flex-col gap-2" data-profile-target="detail" data-group="overview">
     <h3 class="my-3 font-semibold text-lg">Summary</h3>
-    <% unless current_user.bio.empty? %>
-      <p><%= current_user.bio %></p>
+    <% unless @user.bio.empty? %>
+      <p><%= @user.bio %></p>
     <% else %>
       <p class="italic text-gray-500 text-sm">No bio to display.</p>
     <% end %>

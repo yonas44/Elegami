@@ -8,15 +8,8 @@
         <%= f.text_field :description, autofocus: true, class: "border-none shadow-inner", placeholder: 'Description here..' %>
       </div>
       <div>
-        <div class="flex gap-3">
-          <p>Assignees</p>
-          <button class="rounded-full border border-gray-300 p-1" type="button" data-action="project#memberModalToggle">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="rgb(209 213 219" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </button>
-        </div>
-        <ul class="max-h-[240px]">
+        <p>Assignees</p>
+        <ul class="max-h-[240px] overflow-auto">
           <% members.each do |member| %>
             <li class="flex items-center space-x-2">
               <%= check_box_tag 'user_ids[]', member.user.id, false %>
