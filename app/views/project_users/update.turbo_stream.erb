@@ -1,0 +1,6 @@
+<% if @member_is_updated %>
+  <%= turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: 'Member role updated!', errors: nil }) %>
+  <%= turbo_stream.replace('project_members_container', partial: 'partials/projects/project_members_list', locals: { members: @members }) %>
+<% else %>
+  <%= turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: @project_user.errors.full_messages }) %>
+<% end %>
