@@ -20,6 +20,12 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def show
+    task = Task.includes(task_users: :user).find(params[:id])
+
+    respond_to(&:turbo_stream)
+  end
+
   def create
     @task = Task.new(task_params)
 
@@ -49,8 +55,6 @@ class TasksController < ApplicationController
     @all_tasks = filtered_tasks(@milestone)
     @project_users = ProjectUser.includes(:user).where(project_id: @milestone.project_id)
     @tasks = fetch_tasks(@milestone.project_id)
-
-    p "dddddddddddddddddddddddddddddddddddd project_id: #{@milestone.project_id}"
 
     handle_task_users(@task) if task_params[:status] != 'Completed'
 

@@ -18,6 +18,7 @@ export default class extends Controller {
     "categoryBtn",
     "category",
     "projectType",
+    "taskDetailContainer",
   ];
 
   initialize() {}
@@ -211,5 +212,11 @@ export default class extends Controller {
   taskMemberModalToggle() {
     this.taskMemberModalTarget.classList.toggle("hidden");
     this.taskMemberModalTarget.classList.toggle("flex");
+  }
+
+  // Handle single task detail container remove when close button clicked
+  handleTaskDetailClose() {
+    this.taskDetailContainerTarget.innerHTML = "";
+    this.taskDetailContainerTarget.classList = "";
   }
 }
