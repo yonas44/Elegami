@@ -1,0 +1,72 @@
+<div class="fixed z-10 inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300" id="task_detail_container" data-project-target="taskDetailContainer">
+  <!-- Modal Content -->
+  <div class="bg-white rounded-lg shadow-lg w-full relative z-20 max-w-md">
+    <div class="flex justify-between bg-gray-700 text-gray-500">
+      <p class="text-center flex items-center px-5 bg-white">Task Detail</p>
+      <button class="flex items-center gap-2 p-4" data-action="project#handleTaskDetailClose">
+        <span>Close</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+    <section class="p-5 flex gap-10 text-black">
+      <aside class="flex-1">
+        <div>
+          <h3>Description</h3>
+          <p class="text-sm mt-2 text-gray-500"><%= task.description || '-' %></p>
+        </div>
+        <div class="flex justify-between mt-5">
+          <p class="flex flex-col text-sm">
+            <span class="text-gray-500">Priority</span>
+            <% if task.priority == 'High' %>
+              <span class="text-red-500 font-semibold"><%= task.priority %></span>
+            <% elsif task.priority == 'Medium' %>
+              <span class="text-blue-500 font-semibold"><%= task.priority %></span>
+            <% else %>
+              <span class="text-green-500 font-semibold"><%= task.priority %></span>
+            <% end %>
+          </p>
+          <p class="flex flex-col text-sm">
+            <span class="text-gray-500">Status</span>
+            <span><%= task.status %></span>
+          </p>
+        </div>
+      </aside>
+      <aside class="flex-1">
+        <h3 class="text-right">Assignees</h3>
+        <ul class="max-h-[180px] overflow-auto">
+          <% if task.task_users.count > 0 %>
+            <% task.task_users.each do |task_user| %>
+              <li class="flex items-center">
+                <div class="px-6 py-2 text-left text-xs font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
+                  <div class="flex w-10 h-10 rounded-full overflow-hidden bg-gray-200 relative">
+                    <%= image_tag(task_user.user.image_as_thumbnail, class: "object-cover absolute") if task_user.user.image.attached? %>
+                    <span class="text-black m-auto text-lg font-semibold"><%= task_user.user.full_name[0] %></span>
+                  </div>
+                  <div class="flex flex-col justify-center">
+                    <p class="font-semibold text-md"><%= task_user.user.full_name %></p>
+                    <p class=""><%= task_user.user.email %></p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <p class="italic text-right text-gray-500 mt-5 text-sm">No member assigned.</p>
+          <% end %>
+        </ul>
+      </aside>
+    </section>
+    <% if can? :update, task %>
+      <%= form_for(task, url: task_path(task), method: :patch, data: { action: 'turbo:submit-end->project#handleTaskDetailClose' }, html: { id: "myForm#{task.id}" }) do |form| %>
+        <%= hidden_field_tag "task[status]", "Completed", id: nil %>
+        <%= button_tag data: { turbo_frame: "_top" }, type: 'submit', title: "Mark done", class: "flex gap-1 items-center justify-center w-full bg-green-500 py-2 text-white" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <span>Mark complete</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
