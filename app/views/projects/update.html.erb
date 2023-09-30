@@ -1,0 +1,5 @@
+<turbo-frame id="<%= @project.id %>">
+  <%= render 'partials/projects/project_overview_detail', project: @project %>
+  <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Project updated!", errors: nil } %>
+  <%= turbo_stream.replace "project_info", partial: 'partials/projects/project_basic_info', locals: { project: @project } %>
+</turbo-frame>

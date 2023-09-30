@@ -10,7 +10,7 @@
     </section>
     <p class="text-gray-500"><%= project.description.truncate(80, omission: '...') %></p>
     <section class="flex justify-between">
-      <span>Last Updated on July 29</span>
+      <span>Last Updated on <%= project.updated_at&.strftime('%b %d, %Y') %></span>
     </section>
   </div>
 </div>
