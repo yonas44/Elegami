@@ -70,11 +70,11 @@
             </section>
             <section>
               <h3 class="font-semibold mb-1">Bio</h3>
-              <p class="text-gray-500 text-sm"><%= @project_owner.bio.truncate(80, omission: '...') %></p>
+              <p class="text-gray-500 text-sm"><%= @project_owner.bio.empty? ? '-' : @project_owner.bio.truncate(80, omission: '...') %></p>
             </section>
           </div>
           <div class="bg-white text-black shadow-md p-5 rounded-md flex-1">
-            <p>Message section</p>
+            <p>-- Message section coming soon --</p>
           </div>
         </aside>
         <div id="task_detail_container"></div>

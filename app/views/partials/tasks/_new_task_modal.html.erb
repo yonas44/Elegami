@@ -3,10 +3,14 @@
   <div class="bg-white rounded-lg shadow-lg p-4 w-full relative z-20 max-w-md">
     <h2 class="text-lg font-semibold text-black mb-4">Let's create task!</h2>
     <%= form_for(new_task, url: tasks_path, data: { controller: 'checkbox-select-all', action: "turbo:submit-end->project#taskModalToggle", project_target: "form" }) do |f| %>
-      <div class="field my-5">
+      <div class="field my-5 flex gap-2 justify-between">
         <%= f.hidden_field :milestone_id, value: milestone.id %>
         <%= f.hidden_field :project_id, value: milestone.project_id %>
-        <%= f.text_field :description, autofocus: true, class: "border-none shadow-inner", placeholder: 'Description here..' %>
+        <%= f.text_area :description, autofocus: true, class: "border-none shadow-inner p-2 flex-1", placeholder: 'Description here..' %>
+        <div>
+          <p class="text-gray-500 text-right mb-1">Priority</p>
+          <%= f.select :priority, [["High", "High"], ["Medium", "Medium"], ["Low", "Low"]], {}, { class: "italic text-md border-none bg-transparent px-5 pr-10 col-span-2", autofocus: true } %>
+        </div>
       </div>
       <div>
         <p>Assignees</p>
