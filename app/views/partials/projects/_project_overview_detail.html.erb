@@ -1,0 +1,150 @@
+<div class="flex gap-5 mb-6">
+  <div class="flex-1">
+    <h2 class="text-3xl font-semibold"><%= project.title %></h2>
+    <p class="text-gray-500">Summary of Project Details</p>
+  </div>
+  <div class="flex-1 flex justify-between">
+    <div class="mb-4">
+      <p class="text-gray-500">Project Start Date</p>
+      <p class="text-md font-semibold">
+        <%= project.start_date&.strftime('%B %d, %Y') || '-' %>
+      </p>
+    </div>
+    <div class="mb-4">
+      <p class="text-gray-500">Project Due Date</p>
+      <p class="text-md font-semibold">
+        <%= project.due_date&.strftime('%B %d, %Y') || '-' %>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="flex justify-between">
+  <div class="w-2/5 flex flex-col justify-around">
+    <div class="mb-4">
+      <p class="text-gray-500">Total Milestones</p>
+      <h3 class="text-3xl font-semibold text-blue-500">
+        <%= project.milestones.count %>
+      </h3>
+    </div>
+    <div class="mb-4">
+      <p class="text-gray-500">Project Status</p>
+      <% if project.milestones.count > 0 %>
+        <div class="flex gap-1 mt-2 items-end">
+          <p class="text-3xl font-semibold text-blue-500">
+            <span
+                data-controller="animated-number"
+                data-animated-number-start-value="0"
+                data-animated-number-end-value=<%= project.completion_percentage %>
+                data-animated-number-duration-value="1000"
+                >
+              0
+            </span>%
+          </p>
+          <span class="italic text-gray-500 text-xs">completed</span>
+        </div>
+      <% else %>
+        <p class="text-3xl font-semibold text-gray-500">-</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex-1">
+    <canvas id="projectChart"></canvas>
+  </div>
+</div>
+<% if can? :edit, project %>
+  <div>
+    <%= button_to edit_project_path(project), method: :get do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#008000" class="w-5 h-5 cursor-pointer">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+      </svg>
+    <% end %>
+  </div>
+<% end %>
+<script>
+  var project = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-project'));
+  var milestones = JSON.parse(document.querySelector('[data-name="overview"]').getAttribute('data-milestones'));
+
+  var generateData = () => {
+
+    const days = [];
+
+    milestones.forEach(milestone => {
+      const startDate = new Date(milestone.start_date);
+      const dueDate = new Date(milestone.due_date);
+      days.push([startDate, dueDate]);
+    })
+
+    return days;
+  }
+
+  var generateLabels = () => {
+    const milestoneNames = [];
+
+    milestones.forEach(item => {
+      milestoneNames.push(item.title)
+    });
+
+    return milestoneNames;
+  }
+
+  var data = {
+    labels: generateLabels(),
+    datasets: [{
+      data: generateData(),
+      backgroundColor: milestones.map(milestone => {
+        if (milestone.status === 'Not_started') {
+          return 'rgb(165, 165, 165, 0.4)'
+        } else {
+          return 'rgb(52, 152, 219, 0.4)'
+        }
+      }),
+      hoverOffset: 4,
+      barPercentage: 0.5,
+      borderRadius: 2,
+      borderSkipped: false,
+    }]
+  };
+
+  var todayLine = {
+    id: 'todayLine',
+    beforeDatasetsDraw(chart, args, pluginOptions) {
+      const { ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = 'rgb(252, 103, 103)';
+      ctx.moveTo(x.getPixelForValue(new Date()),top);
+      ctx.lineTo(x.getPixelForValue(new Date()),bottom);
+      ctx.stroke();
+
+      ctx.setLineDash([6, 6])
+    },
+  };
+
+  var ctx = document.getElementById('projectChart');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          position: 'top',
+          min: new Date(project.start_date),
+          max: new Date(project.due_date),
+          type: 'time',
+          time: {
+            unit: 'day'
+          }
+        }
+      }
+    },
+    plugins: [todayLine],
+  });
+</script>
