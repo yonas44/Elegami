@@ -21,10 +21,10 @@
         <% end %>
       <% end %>
     </div>
-    <div class="p-3 col-span-3 whitespace-nowrap relative overflow-hidden">
+    <%= link_to task_path(task), method: :get, class: "p-3 col-span-3 whitespace-nowrap relative overflow-hidden", data: { turbo_stream: true } do %>
       <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-r from-transparent to-white"></div>
       <p><%= task.description || '-' %></p>
-    </div>
+    <% end %>
     <div class="p-3 col-span-2">
       <div class="relative">
         <% if task.task_users.count > 0 %>
