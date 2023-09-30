@@ -40,9 +40,13 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to project_path(@project), notice: 'Project updated!' }
+        format.html
       else
-        format.turbo_stream
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.append(
+            'flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: @project.errors.full_messages }
+          )
+        }
       end
     end
   end
