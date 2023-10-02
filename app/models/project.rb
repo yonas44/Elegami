@@ -5,18 +5,21 @@ class Project < ApplicationRecord
 
   validates :title, :description, presence: true
 
-  def total_tasks
-    Task.joins(milestone: :project).where(projects: { id: }).count
-  end
+  def task_statistics
+    tasks = Task.joins(milestone: :project).where(projects: { id: })
 
-  def total_completed_tasks
-    Task.joins(milestone: :project)
-      .where(projects: { id: })
-      .where(status: 'Completed')
-      .count
+    total_tasks = tasks.count
+    total_completed_tasks = tasks.where(status: 'Completed').count
+
+    {
+      total_tasks: total_tasks,
+      total_completed_tasks: total_completed_tasks,
+    }
   end
 
   def completion_percentage
-    total_tasks.positive? ? (total_completed_tasks.to_f / total_tasks * 100).round(2) : 0
+    tasks = task_statistics
+
+    tasks[:total_tasks].positive? ? (tasks[:total_completed_tasks].to_f / tasks[:total_tasks] * 100).round(2) : 0
   end
 end
