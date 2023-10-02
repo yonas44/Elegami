@@ -42,11 +42,12 @@ class ProjectsController < ApplicationController
       if @project.update(project_params)
         format.html
       else
-        format.turbo_stream {
+        format.turbo_stream do
           render turbo_stream: turbo_stream.append(
-            'flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: @project.errors.full_messages }
+            'flash_container', partial: 'partials/shared/flash', locals: { success: nil,
+                                                                           errors: @project.errors.full_messages }
           )
-        }
+        end
       end
     end
   end

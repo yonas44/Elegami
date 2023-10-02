@@ -3,9 +3,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = fetch_tasks(params[:project_id])
-      
+
     @project_id = params[:project_id]
-    
+
     respond_to(&:turbo_stream)
   end
 
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    task = Task.includes(task_users: :user).find(params[:id])
+    Task.includes(task_users: :user).find(params[:id])
 
     respond_to(&:turbo_stream)
   end
@@ -118,9 +118,9 @@ class TasksController < ApplicationController
 
   def fetch_tasks(project_id)
     Task.joins(milestone: :project)
-    .joins("LEFT JOIN task_users ON tasks.id = task_users.task_id AND task_users.user_id = #{current_user.id}")
-    .where(projects: { id: project_id })
-    .where.not(status: 'Completed')
-    .where.not(task_users: { id: nil })
+      .joins("LEFT JOIN task_users ON tasks.id = task_users.task_id AND task_users.user_id = #{current_user.id}")
+      .where(projects: { id: project_id })
+      .where.not(status: 'Completed')
+      .where.not(task_users: { id: nil })
   end
 end

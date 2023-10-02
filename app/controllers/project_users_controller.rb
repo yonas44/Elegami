@@ -5,14 +5,16 @@ class ProjectUsersController < ApplicationController
     @project_users = ProjectUser.includes(:project).where(user_id: current_user.id)
 
     respond_to do |format|
-      format.turbo_stream do 
+      format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
-          'user_projects_container', partial: 'partials/projects/user_projects_list', locals: { user_projects: @project_users}
-          )
+          'user_projects_container',
+          partial: 'partials/projects/user_projects_list',
+          locals: { user_projects: @project_users }
+        )
       end
     end
   end
-    
+
   def create
     @user_ids = params[:user_ids]
     ProjectUser.create!(@user_ids.map { |id| project_user_params.merge(user_id: id.to_i) })
