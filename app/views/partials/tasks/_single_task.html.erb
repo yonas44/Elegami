@@ -30,16 +30,16 @@
         <% if task.task_users.count > 0 %>
           <% task.task_users.each_with_index do |task_user, index| %>
             <% if index < 3 %>
-              <div class="object-cover rounded-full overflow-hidden absolute left-0 top-0 ml-<%=index * 5%>">
+              <div class="object-cover rounded-full overflow-hidden absolute left-0 top-0 ml-<%=index * 4%>">
                 <div class="flex w-7 h-7 bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
                   <%= image_tag(task_user.user.image_as_thumbnail, class: "absolute object-cover") if task_user.user.image.attached? %>
                   <span class="text-black m-auto text-xs font-semibold"><%= task_user.user.full_name[0] %></span>
                 </div>
               </div>
             <% end %>
-            <% if task.task_users.count > 3 %>
-              <span class="absolute -right-3">+<%= task.task_users.count - 3 %></span>
-            <% end %>
+          <% end %>
+          <% if task.task_users.count > 3 %>
+            <span class="absolute ml-16">+<%= task.task_users.count - 3 %></span>
           <% end %>
         <% else %>
           -

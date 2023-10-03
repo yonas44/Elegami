@@ -3,6 +3,7 @@ class Milestone < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   validates :title, presence: true
+  validates :start_date, presence: true, on: :create
   validate :start_date_cannot_be_in_the_past, on: :create
   validate :due_date_after_start_date
 
@@ -23,9 +24,9 @@ class Milestone < ApplicationRecord
   private
 
   def update_milestone_status
-    if Date.today == self.start_date && self.status != 'In_progress'
+    if milestone_starts_today? || milestone_due_date_extended? 
       self.update(status: 'In_progress')
-    elsif Date.today > self.due_date
+    elsif milestone_past_due_date?
       tasks_count = self.tasks.where.not(status: 'Completed').count
 
       if tasks_count.positive?
@@ -34,5 +35,17 @@ class Milestone < ApplicationRecord
         self.update(status: 'Completed')
       end
     end
+  end
+
+  def milestone_starts_today?
+    Date.today == self.start_date && self.status != 'In_progress'
+  end
+
+  def milestone_due_date_extended?
+    Time.now <= self.due_date && self.status == 'Behind_schedule'
+  end
+
+  def milestone_past_due_date?
+    Time.now > self.due_date
   end
 end
