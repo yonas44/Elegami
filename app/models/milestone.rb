@@ -24,28 +24,28 @@ class Milestone < ApplicationRecord
   private
 
   def update_milestone_status
-    if milestone_starts_today? || milestone_due_date_extended? 
-      self.update(status: 'In_progress')
+    if milestone_starts_today? || milestone_due_date_extended?
+      update(status: 'In_progress')
     elsif milestone_past_due_date?
-      tasks_count = self.tasks.where.not(status: 'Completed').count
+      tasks_count = tasks.where.not(status: 'Completed').count
 
       if tasks_count.positive?
-        self.update(status: 'Behind_schedule')
-      else 
-        self.update(status: 'Completed')
+        update(status: 'Behind_schedule')
+      else
+        update(status: 'Completed')
       end
     end
   end
 
   def milestone_starts_today?
-    Date.today == self.start_date && self.status != 'In_progress'
+    Date.today == start_date && status != 'In_progress'
   end
 
   def milestone_due_date_extended?
-    Time.now <= self.due_date && self.status == 'Behind_schedule'
+    Time.now <= due_date && status == 'Behind_schedule'
   end
 
   def milestone_past_due_date?
-    Time.now > self.due_date
+    Time.now > due_date
   end
 end

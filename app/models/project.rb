@@ -11,10 +11,7 @@ class Project < ApplicationRecord
     total_tasks = tasks.count
     total_completed_tasks = tasks.where(status: 'Completed').count
 
-    {
-      total_tasks: total_tasks,
-      total_completed_tasks: total_completed_tasks,
-    }
+    { total_tasks:, total_completed_tasks: }
   end
 
   def completion_percentage
