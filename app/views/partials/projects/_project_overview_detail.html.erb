@@ -71,7 +71,7 @@
     milestones.forEach(milestone => {
       const startDate = new Date(milestone.start_date);
       const dueDate = new Date(milestone.due_date);
-      days.push([startDate, dueDate]);
+      days.push([startDate, dueDate, milestone.status]);
     })
 
     return days;
@@ -94,7 +94,13 @@
       backgroundColor: milestones.map(milestone => {
         if (milestone.status === 'Not_started') {
           return 'rgb(165, 165, 165, 0.4)'
-        } else {
+        } else if (milestone.status === 'Completed') {
+          return 'rgb(0, 128, 0, 0.4)'
+        }
+         else if (milestone.status === 'Behind_schedule') {
+          return 'rgb(255, 0, 0, 0.4)'
+        }
+         else {
           return 'rgb(52, 152, 219, 0.4)'
         }
       }),
@@ -121,6 +127,10 @@
     },
   };
 
+  var labelToolTip = (event) => {
+    return event.raw[2];
+  };
+
   var ctx = document.getElementById('projectChart');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -131,6 +141,11 @@
       plugins: {
         legend: {
           display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: labelToolTip
+          }
         }
       },
       scales: {
