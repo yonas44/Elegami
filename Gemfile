@@ -66,8 +66,6 @@ group :development, :test do
 
   gem 'rspec-rails'
 
-  gem 'stimulus_reflex'
-
   gem 'faker'
 
   gem 'factory_bot_rails'
