@@ -1,17 +1,17 @@
-<div class="flex w-full h-screen bg-white text-black" style="background-image: url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdGl2ZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60'); background-position: center; background-size:cover">
-  <div class="mx-auto bg-white flex flex-col gap-4 justify-center px-10" style="transform: skewX(-6deg); box-shadow: 15px 0 50px black">
+<div class="flex w-full h-screen " style="background-image: url('https://images.unsplash.com/photo-1658053283477-b985256569bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-position: center; background-size:cover">
+  <section class="bg-gradient-to-r from-black to-transparent flex flex-col gap-4 justify-center w-full px-10 md:px-32">
     <section class="my-auto">
-      <h2 class="text-4xl font-semibold my-2" style="transform: skewX(6deg);">Forgot your password?</h2>
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-        <div class="field my-5" style="transform: skewX(6deg);">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border-none shadow-inner", placeholder: 'Email here..', required: true %>
+      <h2 class="text-4xl font-semibold my-2">Forgot your password?</h2>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'text-black' }) do |f| %>
+        <div class="field my-5">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border-none shadow-inner rounded-md", placeholder: 'Email here..', required: true %>
         </div>
         <div class="actions">
-          <%= f.submit "Send me reset password instructions", class: "bg-gradient-to-r from-[#8075F7] to-[#5CA7FC] w-full py-3 mt-10 rounded-md text-white" %>
+          <%= f.submit "Send me reset password instructions", class: "w-max px-10 bg-gradient-to-r from-[#8075F7] to-[#5CA7FC] w-full py-3 mt-10 rounded-md text-white" %>
         </div>
       <% end %>
     </section>
-    <div class="mb-5 flex items-center gap-2" style="transform: skewX(6deg);">
+    <div class="mb-5 flex items-center gap-2">
       <span>Click here to</span><%= link_to 'Login', user_session_path, method: :get, class: "text-blue-500" %>
     </div>
   </div>
