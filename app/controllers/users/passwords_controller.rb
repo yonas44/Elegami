@@ -1,13 +1,23 @@
 class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/new
-  # def new
-  #   super
-  # end
+  def new
+    # super
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: ['Unauthorzed for test version']})
+      }
+    end
+  end
 
   # POST /resource/password
-  # def create
-  #   super
-  # end
+  def create
+    # super
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: ['Unauthorzed for test version']})
+      }
+    end
+  end
 
   # GET /resource/password/edit?reset_password_token=abcdef
   # def edit

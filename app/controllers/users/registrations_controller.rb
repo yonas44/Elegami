@@ -3,14 +3,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
+  def new
   #   super
-  # end
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: ['Unauthorzed for test version']})
+      }
+    end
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # super
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.append('flash_container', partial: 'partials/shared/flash', locals: { success: nil, errors: ['Unauthorzed for test version']})
+      }
+    end
+  end
 
   # GET /resource/edit
   # def edit
