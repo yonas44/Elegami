@@ -1,6 +1,7 @@
 <% if params[:task][:status] == 'Completed' %>
   <%= turbo_stream.replace "milestone_detail_wrapper", partial: 'partials/projects/milestone_detail', locals: { milestone: @milestone, new_task: @new_task, incomplete_tasks: @all_tasks[:incomplete_tasks], completed_tasks: @all_tasks[:completed_tasks], project_users: @project_users } %>
   <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: "Task completed!", errors: nil } %>
+  <%= turbo_stream.replace("user_tasks_container#{@milestone.project_id}", partial: 'partials/projects/user_tasks_list', locals: { tasks: @tasks, project_id: @milestone.project_id }) %>
 <% else %>
   <%= turbo_stream.append "flash_container", partial: 'partials/shared/flash', locals: { success: nil, errors: @task.errors.full_messages } %>
 <% end %>

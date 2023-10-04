@@ -17,6 +17,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from ActiveRecord::RecordInvalid do |exception|
+    respond_to do |format|
+      format.html do
+        flash[:errors] = exception.record.errors.full_messages
+        redirect_back fallback_location: projects_path
+      end
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append(
+          'flash_container', partial: 'partials/shared/flash',
+                             locals: { success: nil, errors: exception.record.errors.full_messages }
+        )
+      end
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

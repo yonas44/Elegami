@@ -15,6 +15,10 @@ export default class extends Controller {
     "taskModal",
     "memberModal",
     "taskMemberModal",
+    "categoryBtn",
+    "category",
+    "projectType",
+    "taskDetailContainer",
   ];
 
   initialize() {}
@@ -30,46 +34,47 @@ export default class extends Controller {
     this.formTarget.reset();
   }
 
-  // handleSelect(event) {
-  //   const selectedProject = this.allProjects.find(
-  //     (item) => item.id == event.currentTarget.dataset.id
-  //   );
-  //   this.selectedProjectId = selectedProject?.id;
-  //   console.log(this.selectedProjectId);
-  //   this.show(selectedProject);
-  // }
+  // Method to handle category switch from project to tasks and vise versa
+  handleCategorySwitch(event) {
+    const categoryName = event.currentTarget.dataset.name;
 
-  // handleDelete() {
-  //   const modal = document.querySelector("#deleteModal");
+    this.categoryBtnTargets.forEach((item) => {
+      item.classList.remove("font-semibold");
+      item.classList.add(
+        "bg-gray-700",
+        "border-b",
+        "border-gray-500",
+        "text-gray-400"
+      );
+    });
 
-  //   // Show the modal when the delete button is clicked
-  //   modal.classList.remove("hidden");
-  //   modal.classList.add("flex");
-  // }
+    event.currentTarget.classList.add("font-semibold");
+    event.currentTarget.classList.remove(
+      "bg-gray-700",
+      "border-b",
+      "border-gray-500",
+      "text-gray-400"
+    );
 
-  // handleConfirm(event) {
-  //   const modal = document.querySelector("#deleteModal");
-  //   const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-  //   const operation = event.currentTarget.textContent;
+    this.categoryTargets.forEach((item) => {
+      if (item.dataset.name === categoryName) {
+        item.classList.remove("hidden");
+        item.classList.add("flex");
+      } else {
+        item.classList.add("hidden");
+      }
+    });
+  }
 
-  //   if (this.selectedProjectId && operation === "Delete") {
-  //     fetch(`${this.BASE_URL}/projects/${this.selectedProjectId}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "X-CSRF-Token": csrfToken,
-  //       },
-  //     });
-  //   } else {
-  //     this.selectedProjectId = null;
-  //   }
-  //   modal.classList.add("hidden"); // Hide the modal
-  // }
-
-  // Handle Delete button click
-  // confirmButton.addEventListener("click", async () => {
-  //   console.log(projectId);
-  // });
+  // Method to handle project type switch (All, inprogress and completed)
+  handleProjectTypeSwitch(event) {
+    this.projectTypeTargets.forEach((item) => {
+      item.classList.remove("border-b", "border-white");
+      item.classList.add("text-gray-500");
+    });
+    event.currentTarget.classList.add("border-b", "border-white");
+    event.currentTarget.classList.remove("text-gray-500");
+  }
 
   // Reset the new project form
   reset() {
@@ -207,5 +212,11 @@ export default class extends Controller {
   taskMemberModalToggle() {
     this.taskMemberModalTarget.classList.toggle("hidden");
     this.taskMemberModalTarget.classList.toggle("flex");
+  }
+
+  // Handle single task detail container remove when close button clicked
+  handleTaskDetailClose() {
+    this.taskDetailContainerTarget.innerHTML = "";
+    this.taskDetailContainerTarget.classList = "";
   }
 }

@@ -1,0 +1,1 @@
+<%= turbo_stream.replace("user_tasks_container#{@project_id}", partial: 'partials/projects/user_tasks_list', locals: { tasks: @tasks, project_id: @project_id }) %>

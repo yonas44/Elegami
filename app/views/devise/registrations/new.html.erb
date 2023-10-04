@@ -1,19 +1,18 @@
-<div class="flex w-full h-screen bg-white text-black">
-  <div class="flex-1 bg-gray-500"></div>
-  <section class="mx-auto flex flex-col gap-4 justify-center w-full md:w-2/5 px-10">
+<div class="flex w-full h-screen text-black" style="background-image: url('https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdGl2ZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60'); background-position: center; background-size:cover">
+  <section class="mx-auto flex flex-col bg-white gap-4 justify-center px-10" style="transform: skewX(-6deg); box-shadow: 15px 0 50px black">
     <section class="my-auto">
-      <div>
+      <div style="transform: skewX(6deg);">
         <h2 class="text-4xl font-bold my-2">Welcome Stranger!</h2>
         <p class="text-gray-600">Let's help you set up</p>
       </div>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <div class="field my-5">
+        <div class="field my-5" style="transform: skewX(6deg);">
           <%= f.text_field :full_name, autofocus: true, class: "border-none shadow-inner", placeholder: 'Full name here..', required: true %>
         </div>
-        <div class="field my-5">
+        <div class="field my-5" style="transform: skewX(6deg);">
           <%= f.email_field :email, autofocus: true, class: "border-none shadow-inner", placeholder: 'Email here..', required: true %>
         </div>
-        <div class="field my-5">
+        <div class="field my-5" style="transform: skewX(6deg);">
           <%= f.password_field :password, class: "border-none shadow-inner", placeholder: 'Password..', required: true %>
         </div>
         <div class="actions">
@@ -21,7 +20,7 @@
         </div>
       <% end %>
     </section>
-    <div class="mb-5 flex items-center gap-2">
+    <div class="mb-5 flex items-center gap-2" style="transform: skewX(6deg);">
       <span>Already a user?</span><%= link_to 'Login', user_session_path, method: :get, class: "text-blue-500" %><span> here</span>
     </div>
   </section>

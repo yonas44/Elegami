@@ -1,0 +1,28 @@
+<div class="bg-white text-black w-full flex-1 py-4">
+  <% if user_projects.count> 0 %>
+    <ul class="flex flex-col gap-3 overflow-auto" id="projects_list">
+      <% user_projects.each do |project_user| %>
+        <div class="grid grid-cols-5 items-center bg-gray-100 border-l-4 border-r-4 border-green-700 hover:bg-gray-200 px-2 py-1">
+          <%= link_to tasks_path(project_id: project_user.project_id), method: :get, class: 'col-span-2 md:px-10', data: { turbo_stream: true } do %>
+            <h3 class="text-xl font-semibold"><%= project_user.project.title %></h3>
+            <span class="text-sm text-gray-500">
+              <%= project_user.project.description.truncate(50, omission: '...') %>
+            </span>
+          <% end %>
+          <div class="italic text-gray-500 col-span-1"><%= project_user.project.public ? 'Public' : 'Private' %></div>
+          <div class="text-blue-500 col-span-2 flex justify-around items-center">
+            <p><%= project_user.project.completion_percentage %>% <span class="text-xs italic text-gray-500">completed</span></p>
+            <%= link_to project_path(project_user.project), html: { title: "View project" } do %>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            <% end %>
+          </div>
+        </div>
+        <div id="user_tasks_container<%= project_user.project_id %>"></div>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="m-5">There are no projects to display</div>
+  <% end %>
+</div>

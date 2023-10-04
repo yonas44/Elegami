@@ -1,9 +1,8 @@
 <section class="relative py-5 px-10 md:w-[90%] flex-1 mx-auto overflow-x-hidden flex gap-5" data-controller="project">
   <aside class="bg-white text-black shadow-md p-5 flex flex-col lg:w-2/3 rounded-md min-h-full">
     <section class="flex flex-col gap-5">
-      <div class="flex flex-col gap-3">
-        <h1 class="text-2xl font-semibold capitalize"><%= @project.title %></h1>
-        <p class="text-gray-600"><%= @project.description %></p>
+      <div class="flex flex-col gap-3" id="project_info">
+        <%= render 'partials/projects/project_basic_info', project: @project %>
       </div>
       <div class="grid grid-cols-3">
         <div class="col-span-2">
@@ -71,11 +70,12 @@
             </section>
             <section>
               <h3 class="font-semibold mb-1">Bio</h3>
-              <p class="text-gray-500 text-sm"><%= @project_owner.bio.truncate(80, omission: '...') %></p>
+              <p class="text-gray-500 text-sm"><%= @project_owner.bio.empty? ? '-' : @project_owner.bio.truncate(80, omission: '...') %></p>
             </section>
           </div>
           <div class="bg-white text-black shadow-md p-5 rounded-md flex-1">
-            <p>Message section</p>
+            <p>-- Message section coming soon --</p>
           </div>
         </aside>
+        <div id="task_detail_container"></div>
       </section>

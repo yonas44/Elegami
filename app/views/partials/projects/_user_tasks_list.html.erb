@@ -1,0 +1,11 @@
+<div class="divide-y h-full divide-gray-200 flex flex-1 overflow-auto" id="user_tasks_container<%= project_id %>">
+  <% if tasks.count> 0 %>
+    <ul class="bg-white flex-1">
+      <% tasks.each do |task| %>
+        <%= render 'partials/tasks/single_task', task: task %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="italic text-gray-500 text-sm text-center w-full">No task available at the moment!</p>
+  <% end %>
+</div>

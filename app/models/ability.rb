@@ -17,7 +17,7 @@ class Ability
     end
 
     # Project_user Authorization
-    can %i[create update destroy], ProjectUser do |project_user|
+    can %i[read create update destroy], ProjectUser do |project_user|
       can?(:destroy, project_user.project)
     end
 
