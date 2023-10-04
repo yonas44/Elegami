@@ -73,6 +73,10 @@ group :development, :test do
   gem 'database_cleaner'
 
   gem 'chart-js-rails'
+
+  gem 'sidekiq'
+
+  gem 'sidekiq-cron'
 end
 
 group :development do

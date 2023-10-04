@@ -1,0 +1,18 @@
+databases:
+  - name: elegami_database
+    databaseName: elegami_database
+    user: elegami_database_user
+
+services:
+  - type: web
+    name: Elegami
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: elegami_database
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

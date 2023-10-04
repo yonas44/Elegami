@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: {
-  sessions: 'users/sessions', # Customize the session controller
-  registrations: 'users/registrations', # Customize the registration controller
-  # Add other controllers here as needed
+  sessions: 'users/sessions',
+  # registrations: 'users/registrations',
 }
   resources :projects 
   resources :project_users 
