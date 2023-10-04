@@ -25,7 +25,7 @@
 
 # 📖 Elegami <a name="about-project"></a>
 
-- A dynamic project management solution designed to enhance collaboration and efficiency. With intuitive task management, visual project planning, real-time updates, and robust reporting, [Your Project Name] empowers teams to streamline workflows and drive project success.
+- A dynamic project management solution designed to enhance collaboration and efficiency. With intuitive task management, visual project planning, and real-time updates, it empowers teams to streamline workflows and drive project success.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -58,7 +58,7 @@
 ### Key Features v1.1 <a name="key-features"></a>
 
 - `Seamless Collaboration`: provides a collaborative workspace where your team members can work together effortlessly, share files, and communicate in real-time.
-- `Real-Time Updates`: Receive instant notifications and updates, keeping you informed about project developments and changes.
+- `Real-Time Updates`: Receive instant notifications and updates, informing you about project developments and changes.
 - `Visual Project Planning`: Visualize your project's progress with interactive Gantt charts and timelines. Gain insights into project timelines, dependencies, and milestones.
 
 ## 🚀 Live Demo <a name="live-demo"></a>
