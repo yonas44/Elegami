@@ -71,7 +71,7 @@
     milestones.forEach(milestone => {
       const startDate = new Date(milestone.start_date);
       const dueDate = new Date(milestone.due_date);
-      days.push([startDate, dueDate]);
+      days.push([startDate, dueDate, milestone.status]);
     })
 
     return days;
@@ -127,6 +127,10 @@
     },
   };
 
+  var labelToolTip = (event) => {
+    return event.raw[2];
+  };
+
   var ctx = document.getElementById('projectChart');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -137,6 +141,11 @@
       plugins: {
         legend: {
           display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: labelToolTip
+          }
         }
       },
       scales: {
