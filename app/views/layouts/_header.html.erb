@@ -49,7 +49,7 @@
   </ul>
   <div class="flex gap-2 items-center cursor-pointer relative" data-controller="header" data-action="click->header#toggle">
     <div class="flex w-12 h-12 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
-      <%= image_tag(current_user.image_as_thumbnail, class: "absolute object-cover") if current_user.image.attached? %>
+      <%= image_tag(current_user.image_as_thumbnail, class: "absolute object-cover h-full") if current_user.image.attached? %>
       <span class="text-black m-auto text-lg font-semibold"><%= current_user.full_name[0] %></span>
     </div>
     <button type='button' data-header-target="dropDown">

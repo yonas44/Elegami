@@ -2,7 +2,7 @@
   <%= form_for(@user, url: user_path(@user), method: :patch, html: { class: "w-full flex justify-between" }) do |f| %>
     <div class="absolute bottom-3/4 left-5 h-1/2 w-full border-5 border-white rounded-full flex overflow-hidden">
       <div class="flex h-full aspect-1 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>" style="min-width:125px">
-        <%= image_tag(@user.image_as_thumbnail, class: "absolute object-cover") if @user.image.attached? %>
+        <%= image_tag(@user.image_as_thumbnail, class: "absolute object-cover h-full") if @user.image.attached? %>
         <span class="text-black m-auto text-3xl font-semibold"><%= @user.full_name[0] %></span>
       </div>
       <div class="mt-20 ml-5">

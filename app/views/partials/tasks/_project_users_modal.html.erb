@@ -8,7 +8,7 @@
           <%= label_tag "user_ids_#{member.user.id}" do %>
             <div class="px-6 py-1 text-left text-xs col-span-4 font-medium text-gray-500 flex gap-2 tracking-wider whitespace-nowrap">
               <div class="flex w-16 h-16 rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
-                <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover") if member.user.image.attached? %>
+                <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover h-full") if member.user.image.attached? %>
                 <span class="text-black m-auto text-lg font-semibold"><%= member.user.full_name[0] %></span>
               </div>
               <div class="flex flex-col justify-center">

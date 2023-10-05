@@ -3,7 +3,7 @@
     <% project_users.each_with_index do |member, index| %>
       <% if index < 3 %>
         <div class="flex w-10 h-10 rounded-full overflow-hidden bg-gray-200 relative" title="<%= member.user.full_name %>">
-          <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover") if member.user.image.attached? %>
+          <%= image_tag(member.user.image_as_thumbnail, class: "absolute object-cover h-full") if member.user.image.attached? %>
           <span class="text-black m-auto text-lg font-semibold"><%= member.user.full_name[0] %></span>
         </div>
       <% end %>

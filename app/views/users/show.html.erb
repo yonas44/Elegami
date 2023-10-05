@@ -6,7 +6,7 @@
         <turbo-frame id="user<%= current_user.id %>" class="flex justify-between">
           <div class="absolute bottom-3/4 left-5 h-1/2 aspect-1 overflow-hidden border-5 border-white rounded-full flex bg-gray-300">
             <div class="flex w-full h-full rounded-full overflow-hidden bg-gray-200 relative <%= request.path.include?('/users/') && 'border-2 border-white'%>">
-              <%= image_tag(@user.image_as_thumbnail, class: "absolute object-cover") if current_user.image.attached? %>
+              <%= image_tag(@user.image_as_thumbnail, class: "absolute object-cover h-full") if current_user.image.attached? %>
               <span class="text-black m-auto text-3xl font-semibold"><%= current_user.full_name[0] %></span>
             </div>
           </div>
