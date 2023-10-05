@@ -2,7 +2,7 @@ class ProjectUser < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
-  validate :unique_user_project_association
+  validate :unique_user_project_association, on: :create
 
   private
 
