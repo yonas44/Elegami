@@ -63,6 +63,15 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
+- Make sure to use one of these credentials to try the live version.
+ ```
+    | users          | email             | password    |
+    |----------------|-------------------|-------------|
+ 1. | Yonas Tesfu    | user1@example.com | password    |
+ 2. | Selam Tesfu    | user2@example.com | password    |
+ 3. | Marvin Olsen   | user3@example.com | password    |
+ 4. | Naruto Uzumaki | user4@example.com | password    |
+```
 - You can find the live version [here](https://elegami.onrender.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
