@@ -52,8 +52,6 @@ gem 'devise'
 
 gem 'hotwire-rails'
 
-gem 'stimulus_reflex'
-
 gem 'rubocop', '~> 1.56'
 
 gem 'image_processing', '~> 1.2'
