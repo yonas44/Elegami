@@ -1,7 +1,7 @@
 databases:
-  - name: elegami_database
-    databaseName: elegami_database
-    user: elegami_database_user
+  - name: elegami_db
+    databaseName: elegami_db
+    user: elegami_db_user
 
 services:
   - type: web
@@ -12,7 +12,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: elegami_database
+          name: elegami_db
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
